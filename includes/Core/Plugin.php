@@ -4,35 +4,45 @@ namespace NexusLearn\Core;
 
 class Plugin {
     public function __construct() {
+        // Initialize taxonomies
+        new Taxonomies();
+        
+        // Initialize admin menus
+        if (is_admin()) {
+            new \NexusLearn\Admin\MenuManager();
+        }
+
         add_action('init', [$this, 'register_post_types']);
-        add_action('admin_menu', [$this, 'add_admin_menu']);
     }
 
     public function register_post_types() {
+        // Register Course Post Type
         register_post_type('nl_course', [
             'labels' => [
                 'name' => __('Courses', 'nexuslearn'),
-                'singular_name' => __('Course', 'nexuslearn')
+                'singular_name' => __('Course', 'nexuslearn'),
+                'menu_name' => __('Courses', 'nexuslearn'),
+                'add_new' => __('Add New Course', 'nexuslearn'),
+                'add_new_item' => __('Add New Course', 'nexuslearn'),
+                'edit_item' => __('Edit Course', 'nexuslearn'),
             ],
             'public' => true,
             'has_archive' => true,
             'supports' => ['title', 'editor', 'thumbnail'],
-            'menu_icon' => 'dashicons-welcome-learn-more'
+            'menu_icon' => 'dashicons-welcome-learn-more',
+            'show_in_menu' => true,
         ]);
-    }
 
-    public function add_admin_menu() {
-        add_menu_page(
-            __('NexusLearn', 'nexuslearn'),
-            __('NexusLearn', 'nexuslearn'),
-            'manage_options',
-            'nexuslearn',
-            [$this, 'render_admin_page'],
-            'dashicons-welcome-learn-more'
-        );
-    }
-
-    public function render_admin_page() {
-        require_once NEXUSLEARN_PLUGIN_DIR . 'templates/admin/dashboard.php';
+        // Register Lesson Post Type
+        register_post_type('nl_lesson', [
+            'labels' => [
+                'name' => __('Lessons', 'nexuslearn'),
+                'singular_name' => __('Lesson', 'nexuslearn'),
+            ],
+            'public' => true,
+            'has_archive' => true,
+            'supports' => ['title', 'editor'],
+            'show_in_menu' => 'edit.php?post_type=nl_course',
+        ]);
     }
 }

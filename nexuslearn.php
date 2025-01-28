@@ -17,6 +17,8 @@ define('NEXUSLEARN_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Plugin.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/CourseManager.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Taxonomies.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/MenuManager.php';
 
 // Autoloader
 spl_autoload_register(function ($class) {
@@ -44,24 +46,14 @@ function nexuslearn_init() {
 add_action('plugins_loaded', 'nexuslearn_init');
 
 
+// // Activation Hook
+// register_activation_hook(__FILE__, function() {
+//     require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Activator.php';
+//     NexusLearn\Core\Activator::activate();
+// });
 
-function nexuslearn_init() {
-    new NexusLearn\Core\Plugin();
-    if (is_admin()) {
-        new NexusLearn\Admin\CourseManager();
-    }
-}
-
-add_action('plugins_loaded', 'nexuslearn_init');
-
-// Activation Hook
-register_activation_hook(__FILE__, function() {
-    require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Activator.php';
-    NexusLearn\Core\Activator::activate();
-});
-
-// Deactivation Hook
-register_deactivation_hook(__FILE__, function() {
-    require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Deactivator.php';
-    NexusLearn\Core\Deactivator::deactivate();
-});
+// // Deactivation Hook
+// register_deactivation_hook(__FILE__, function() {
+//     require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Deactivator.php';
+//     NexusLearn\Core\Deactivator::deactivate();
+// });
