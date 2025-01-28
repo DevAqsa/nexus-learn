@@ -1,0 +1,67 @@
+<?php
+/**
+ * Plugin Name: NexusLearn LMS
+ * Description: Advanced Learning Management System for course creation, progress tracking, and quizzes
+ * Version: 1.0.0
+ * Author: Aqsa Mumtaz
+ * Text Domain: nexuslearn
+ */
+
+defined('ABSPATH') || exit;
+
+// Plugin Constants
+define('NEXUSLEARN_VERSION', '1.0.0');
+define('NEXUSLEARN_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('NEXUSLEARN_PLUGIN_URL', plugin_dir_url(__FILE__));
+
+
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Plugin.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/CourseManager.php';
+
+// Autoloader
+spl_autoload_register(function ($class) {
+    $prefix = 'NexusLearn\\';
+    $base_dir = NEXUSLEARN_PLUGIN_DIR . 'includes/';
+
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
+
+    $relative_class = substr($class, $len);
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    if (file_exists($file)) {
+        require $file;
+    }
+});
+
+// Initialize Plugin
+function nexuslearn_init() {
+    // Initialize core classes
+    new NexusLearn\Core\Plugin();
+}
+add_action('plugins_loaded', 'nexuslearn_init');
+
+
+
+function nexuslearn_init() {
+    new NexusLearn\Core\Plugin();
+    if (is_admin()) {
+        new NexusLearn\Admin\CourseManager();
+    }
+}
+
+add_action('plugins_loaded', 'nexuslearn_init');
+
+// Activation Hook
+register_activation_hook(__FILE__, function() {
+    require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Activator.php';
+    NexusLearn\Core\Activator::activate();
+});
+
+// Deactivation Hook
+register_deactivation_hook(__FILE__, function() {
+    require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Deactivator.php';
+    NexusLearn\Core\Deactivator::deactivate();
+});
