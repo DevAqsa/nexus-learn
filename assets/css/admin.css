@@ -1,0 +1,48 @@
+/* Settings page styles */
+.nl-settings-tabs {
+    margin-top: 20px;
+}
+
+.nl-settings-tabs .nav-tab-wrapper {
+    margin-bottom: 20px;
+}
+
+.nl-settings-tabs section {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    margin-top: -1px;
+}
+
+.nl-settings-tabs .form-table {
+    margin-top: 0;
+}
+
+.nl-settings-tabs .form-table th {
+    padding-top: 15px;
+}
+
+/* Image upload field */
+.image-upload-field {
+    margin: 10px 0;
+}
+
+.image-preview {
+    background: #f0f0f1;
+    padding: 10px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.image-preview img {
+    max-height: 100px;
+    width: auto;
+}
+
+/* Submit button spacing */
+.nl-settings-tabs p.submit {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #dcdcde;
+}

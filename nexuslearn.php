@@ -15,10 +15,15 @@ define('NEXUSLEARN_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('NEXUSLEARN_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 
+
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Plugin.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/CourseManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Taxonomies.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/MenuManager.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/Settings.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/GeneralSettings.php';
+
+
 
 // Autoloader
 spl_autoload_register(function ($class) {
@@ -42,6 +47,8 @@ spl_autoload_register(function ($class) {
 function nexuslearn_init() {
     // Initialize core classes
     new NexusLearn\Core\Plugin();
+
+    
 }
 add_action('plugins_loaded', 'nexuslearn_init');
 
