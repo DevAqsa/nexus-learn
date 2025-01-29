@@ -28,6 +28,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/Views/TrackingPage.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/QuizSystem.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/QuizDisplay.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizList.php';
 
 
 
