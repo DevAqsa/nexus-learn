@@ -28,7 +28,9 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/Views/TrackingPage.php';
 
 
 
+
 function nexuslearn_enqueue_admin_scripts($hook) {
+
     if (strpos($hook, 'nl-progress-tracking') !== false) {
         wp_enqueue_style(
             'nl-progress-tracking',
@@ -37,10 +39,35 @@ function nexuslearn_enqueue_admin_scripts($hook) {
             NEXUSLEARN_VERSION
         );
     }
+
+    if (strpos($hook, 'nl-progress-tracking') !== false) {
+        wp_enqueue_style(
+            'nl-progress-tracking',
+            NEXUSLEARN_PLUGIN_URL . 'assets/css/progress-tracking.css',
+            [],
+            NEXUSLEARN_VERSION
+        );
+        
+        // Add Chart.js
+        wp_enqueue_script(
+            'chartjs',
+            'https://cdn.jsdelivr.net/npm/chart.js',
+            [],
+            '4.4.1',
+            true
+        );
+        
+        // Add custom scripts if needed
+        wp_enqueue_script(
+            'nl-analytics',
+            NEXUSLEARN_PLUGIN_URL . 'assets/js/analytics.js',
+            ['jquery', 'chartjs'],
+            NEXUSLEARN_VERSION,
+            true
+        );
+    }
 }
 add_action('admin_enqueue_scripts', 'nexuslearn_enqueue_admin_scripts');
-
-
 
 
 // Autoloader

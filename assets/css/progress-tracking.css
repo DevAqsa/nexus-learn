@@ -123,3 +123,263 @@
     background: #f8d7da;
     color: #58151c;
 }
+
+
+/* ---------------------------- trackin dashboard analytics---------------------- */
+
+
+.nl-analytics-dashboard {
+    margin-top: 30px;
+}
+
+.nl-analytics-dashboard h2 {
+    color: #1d2327;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.nl-analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.nl-analytics-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nl-card-full {
+    grid-column: 1 / -1;
+}
+
+.nl-analytics-card h3 {
+    color: #2271b1;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f1;
+}
+
+.nl-chart-container {
+    height: 300px;
+    position: relative;
+}
+
+.nl-top-courses {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.nl-course-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.nl-course-rank {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2271b1;
+    width: 30px;
+}
+
+.nl-course-info {
+    flex: 1;
+}
+
+.nl-course-info h4 {
+    margin: 0 0 5px 0;
+    color: #1d2327;
+}
+
+.nl-course-stats {
+    display: flex;
+    gap: 15px;
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+/* Activity Heatmap Styles */
+.nl-heatmap {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.nl-heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 2px;
+    background-color: #f0f0f1;
+}
+
+.nl-heatmap-low { background-color: #e6f3ff; }
+.nl-heatmap-medium { background-color: #2271b1; }
+.nl-heatmap-high { background-color: #135e96; }
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .nl-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 782px) {
+    .nl-tracking-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-chart-container {
+        height: 250px;
+    }
+}
+
+
+/* ------------------ */
+
+
+/* Progress Tracking Styles */
+.nl-tracking-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.nl-stat-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nl-stat-box h3 {
+    margin: 0 0 20px 0;
+    color: #2271b1;
+    font-size: 1.3em;
+    border-bottom: 2px solid #f0f0f1;
+    padding-bottom: 10px;
+}
+
+/* Analytics Dashboard */
+.nl-analytics-dashboard {
+    margin-top: 30px;
+}
+
+.nl-analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.nl-analytics-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nl-card-full {
+    grid-column: 1 / -1;
+}
+
+.nl-chart-container {
+    height: 300px;
+    position: relative;
+}
+
+/* Popular Courses */
+.nl-popular-courses {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.nl-course-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.nl-course-rank {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2271b1;
+    width: 30px;
+}
+
+.nl-course-info {
+    flex: 1;
+}
+
+.nl-course-info h4 {
+    margin: 0 0 5px 0;
+    color: #1d2327;
+}
+
+.nl-course-stats {
+    display: flex;
+    gap: 15px;
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.nl-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #f0f0f1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.nl-progress-bar-fill {
+    height: 100%;
+    background: #2271b1;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Stats */
+.nl-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.nl-stat-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.nl-stat-value {
+    font-weight: 600;
+    color: #2271b1;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .nl-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 782px) {
+    .nl-tracking-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-chart-container {
+        height: 250px;
+    }
+}
