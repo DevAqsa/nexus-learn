@@ -64,12 +64,12 @@ add_submenu_page(
 );
 
         //difficulties
-        add_submenu_page(
-            'edit.php?post_type=nl_course',
-            __('Difficulties', 'nexuslearn'),
-            __('Difficulties', 'nexuslearn'),
-            'manage_options',
-            'edit-tags.php?taxonomy=course_difficulty&post_type=nl_course'
-        );
+        // add_submenu_page(
+        //     'edit.php?post_type=nl_course',
+        //     __('Difficulties', 'nexuslearn'),
+        //     __('Difficulties', 'nexuslearn'),
+        //     'manage_options',
+        //     'edit-tags.php?taxonomy=course_difficulty&post_type=nl_course'
+        // );
     }
 }

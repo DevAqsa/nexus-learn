@@ -1,10 +1,11 @@
 <?php
-
 namespace NexusLearn\Core;
 
 class Taxonomies {
     public function __construct() {
         add_action('init', [$this, 'register_taxonomies']);
+        add_filter('manage_nl_course_posts_columns', [$this, 'add_difficulty_column']);
+        add_action('manage_nl_course_posts_custom_column', [$this, 'display_difficulty_column'], 10, 2);
     }
 
     public function register_taxonomies() {
@@ -48,50 +49,87 @@ class Taxonomies {
             'rewrite' => ['slug' => 'course-tag'],
         ]);
 
-        // Register Categories Taxonomy for tracks
-        register_taxonomy('track_category', 'nl_track', [
+        // Register Difficulty Taxonomy
+        register_taxonomy('course_difficulty', 'nl_course', [
             'labels' => [
-                'name' => __('Categories', 'nexuslearn'),
-                'singular_name' => __('Category', 'nexuslearn'),
-                'search_items' => __('Search Categories', 'nexuslearn'),
-                'all_items' => __('All Categories', 'nexuslearn'),
-                'edit_item' => __('Edit Category', 'nexuslearn'),
-                'update_item' => __('Update Category', 'nexuslearn'),
-                'add_new_item' => __('Add New Category', 'nexuslearn'),
-                'new_item_name' => __('New Category Name', 'nexuslearn'),
-                'menu_name' => __('Categories', 'nexuslearn'),
+                'name' => __('Difficulties', 'nexuslearn'),
+                'singular_name' => __('Difficulty', 'nexuslearn'),
+                'search_items' => __('Search Difficulties', 'nexuslearn'),
+                'all_items' => __('All Difficulties', 'nexuslearn'),
+                'edit_item' => __('Edit Difficulty', 'nexuslearn'),
+                'update_item' => __('Update Difficulty', 'nexuslearn'),
+                'add_new_item' => __('Add New Difficulty', 'nexuslearn'),
+                'new_item_name' => __('New Difficulty Name', 'nexuslearn'),
+                'menu_name' => __('Difficulties', 'nexuslearn'),
             ],
             'hierarchical' => true,
             'show_ui' => true,
             'show_admin_column' => true,
+            'show_in_quick_edit' => true,
             'query_var' => true,
-            'rewrite' => ['slug' => 'track-category'],
-        ]);
-
-
-        // Register Categories Taxonomy for difficulties
-        register_taxonomy('difficulty_category', 'nl_difficulty', [
-            'labels' => [
-                'name' => __('Categories', 'nexuslearn'),
-                'singular_name' => __('Category', 'nexuslearn'),
-                'search_items' => __('Search Categories', 'nexuslearn'),
-                'all_items' => __('All Categories', 'nexuslearn'),
-                'edit_item' => __('Edit Category', 'nexuslearn'),
-                'update_item' => __('Update Category', 'nexuslearn'),
-                'add_new_item' => __('Add New Category', 'nexuslearn'),
-                'new_item_name' => __('New Category Name', 'nexuslearn'),
-                'menu_name' => __('Categories', 'nexuslearn'),
+            'rewrite' => ['slug' => 'difficulty'],
+            'default_term' => [
+                'name' => 'Intermediate',
+                'slug' => 'intermediate',
             ],
-            'hierarchical' => true,
-            'show_ui' => true,
-            'show_admin_column' => true,
-            'query_var' => true,
-            'rewrite' => ['slug' => 'difficulty-category'],
+            'capabilities' => [
+                'manage_terms' => 'manage_categories',
+                'edit_terms' => 'manage_categories',
+                'delete_terms' => 'manage_categories',
+                'assign_terms' => 'edit_posts'
+            ],
         ]);
 
-        
+        // Add default difficulty terms
+        $this->add_default_difficulties();
+    }
 
+    private function add_default_difficulties() {
+        if (!get_option('nexuslearn_difficulties_added')) {
+            $default_difficulties = [
+                'beginner' => __('Beginner', 'nexuslearn'),
+                'intermediate' => __('Intermediate', 'nexuslearn'),
+                'advanced' => __('Advanced', 'nexuslearn'),
+                'expert' => __('Expert', 'nexuslearn')
+            ];
 
+            foreach ($default_difficulties as $slug => $name) {
+                if (!term_exists($name, 'course_difficulty')) {
+                    wp_insert_term($name, 'course_difficulty', [
+                        'slug' => $slug
+                    ]);
+                }
+            }
 
+            update_option('nexuslearn_difficulties_added', true);
+        }
+    }
+
+    public function add_difficulty_column($columns) {
+        $new_columns = [];
+        foreach ($columns as $key => $value) {
+            $new_columns[$key] = $value;
+            if ($key === 'title') {
+                $new_columns['difficulty'] = __('Difficulty', 'nexuslearn');
+            }
+        }
+        return $new_columns;
+    }
+
+    public function display_difficulty_column($column, $post_id) {
+        if ($column === 'difficulty') {
+            $terms = get_the_terms($post_id, 'course_difficulty');
+            if (!empty($terms) && !is_wp_error($terms)) {
+                foreach ($terms as $term) {
+                    printf(
+                        '<span class="difficulty-badge difficulty-%s">%s</span>',
+                        esc_attr($term->slug),
+                        esc_html($term->name)
+                    );
+                }
+            } else {
+                echo '—';
+            }
+        }
     }
 }

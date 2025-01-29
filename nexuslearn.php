@@ -29,7 +29,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/QuizSystem.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/QuizDisplay.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizList.php';
-
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Analytics/QuizAnalytics.php';
 
 
 
@@ -44,6 +44,29 @@ function nexuslearn_enqueue_admin_scripts($hook) {
             NEXUSLEARN_VERSION
         );
     }
+
+    wp_enqueue_style(
+        'nl-quiz-analytics',
+        NEXUSLEARN_PLUGIN_URL . 'assets/css/quiz-analytics.css',
+        [],
+        NEXUSLEARN_VERSION
+    );
+
+    wp_enqueue_script(
+        'chartjs',
+        'https://cdn.jsdelivr.net/npm/chart.js',
+        [],
+        '4.4.1',
+        true
+    );
+
+    wp_enqueue_script(
+        'nl-quiz-analytics',
+        NEXUSLEARN_PLUGIN_URL . 'assets/js/quiz-analytics.js',
+        ['jquery', 'chartjs'],
+        NEXUSLEARN_VERSION,
+        true
+    );
 
     if (strpos($hook, 'nl-progress-tracking') !== false) {
         wp_enqueue_style(
@@ -104,6 +127,7 @@ function nexuslearn_init() {
     new NexusLearn\Core\QuizSystem();
     new NexusLearn\Admin\QuizManager();
     new NexusLearn\Frontend\QuizDisplay();
+    new NexusLearn\Analytics\QuizAnalytics();
     
     
 }
