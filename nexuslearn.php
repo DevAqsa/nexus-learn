@@ -22,6 +22,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Taxonomies.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/MenuManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/Settings.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/GeneralSettings.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/PostTypes.php';
 
 
 
@@ -47,7 +48,9 @@ spl_autoload_register(function ($class) {
 function nexuslearn_init() {
     // Initialize core classes
     new NexusLearn\Core\Plugin();
-
+    new NexusLearn\Core\PostTypes();
+    new NexusLearn\Core\Taxonomies();
+    new NexusLearn\Admin\MenuManager();
     
 }
 add_action('plugins_loaded', 'nexuslearn_init');

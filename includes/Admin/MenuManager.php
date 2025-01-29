@@ -26,15 +26,6 @@ class MenuManager {
         //     'edit-tags.php?taxonomy=course_category&post_type=nl_course'
         // );
 
-        // Difficulties
-        // add_submenu_page(
-        //     'edit.php?post_type=nl_course',
-        //     __('Difficulties', 'nexuslearn'),
-        //     __('Difficulties', 'nexuslearn'),
-        //     'manage_options',
-        //     'edit-tags.php?taxonomy=course_difficulty&post_type=nl_course'
-        // );
-
         // Tags
         // add_submenu_page(
         //     'edit.php?post_type=nl_course',
@@ -42,15 +33,6 @@ class MenuManager {
         //     __('Tags', 'nexuslearn'),
         //     'manage_options',
         //     'edit-tags.php?taxonomy=course_tag&post_type=nl_course'
-        // );
-
-        // Tracks
-        // add_submenu_page(
-        //     'edit.php?post_type=nl_course',
-        //     __('Tracks', 'nexuslearn'),
-        //     __('Tracks', 'nexuslearn'),
-        //     'manage_options',
-        //     'edit-tags.php?taxonomy=course_track&post_type=nl_course'
         // );
 
         // Lessons
@@ -62,18 +44,22 @@ class MenuManager {
         //     'edit.php?post_type=nl_lesson'
         // );
 
-        // Reviews
-        // add_submenu_page(
-        //     'edit.php?post_type=nl_course',
-        //     __('Reviews', 'nexuslearn'),
-        //     __('Reviews', 'nexuslearn'),
-        //     'manage_options',
-        //     'course-reviews',
-        //     [$this, 'render_reviews_page']
-        // );
-    }
+        // Tracks
+        add_submenu_page(
+            'edit.php?post_type=nl_course',
+            __('Tracks', 'nexuslearn'),
+            __('Tracks', 'nexuslearn'),
+            'manage_options',
+            'edit.php?post_type=nl_track'
+        );
 
-    public function render_reviews_page() {
-        require_once NEXUSLEARN_PLUGIN_DIR . 'templates/admin/reviews.php';
+        //difficulties
+        add_submenu_page(
+            'edit.php?post_type=nl_course',
+            __('Difficulties', 'nexuslearn'),
+            __('Difficulties', 'nexuslearn'),
+            'manage_options',
+            'edit-tags.php?taxonomy=course_difficulty&post_type=nl_course'
+        );
     }
 }
