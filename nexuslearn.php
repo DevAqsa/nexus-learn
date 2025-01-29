@@ -25,6 +25,10 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/GeneralSettings.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/PostTypes.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/ProgressTracker.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/Views/TrackingPage.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/QuizSystem.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizManager.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/QuizDisplay.php';
+
 
 
 
@@ -96,6 +100,10 @@ function nexuslearn_init() {
     new NexusLearn\Core\Taxonomies();
     new NexusLearn\Admin\MenuManager();
     new NexusLearn\Core\ProgressTracker();
+    new NexusLearn\Core\QuizSystem();
+    new NexusLearn\Admin\QuizManager();
+    new NexusLearn\Frontend\QuizDisplay();
+    
     
 }
 add_action('plugins_loaded', 'nexuslearn_init');

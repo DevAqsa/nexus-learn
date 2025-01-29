@@ -1,0 +1,161 @@
+/* Quiz Admin Styles */
+.nl-question-list {
+    margin: 20px 0;
+}
+
+.nl-question {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.nl-question-header {
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.nl-question-type {
+    font-weight: 500;
+    color: #2271b1;
+}
+
+.nl-question-content {
+    padding: 20px;
+}
+
+.nl-remove-question {
+    background: none;
+    border: none;
+    color: #dc3232;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0 5px;
+}
+
+.nl-question-text {
+    margin-bottom: 20px;
+}
+
+.nl-question-text textarea {
+    margin-top: 10px;
+}
+
+.nl-question-points {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+/* Question Type Selector */
+.nl-question-type-selector {
+    display: none;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.nl-question-type-selector button {
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #2271b1;
+    border-radius: 4px;
+    color: #2271b1;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nl-question-type-selector button:hover {
+    background: #2271b1;
+    color: #fff;
+}
+
+/* Multiple Choice Options */
+.nl-options-list {
+    margin: 10px 0;
+}
+
+.nl-option-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.nl-option-item input[type="radio"] {
+    margin: 0;
+}
+
+.nl-remove-option {
+    background: none;
+    border: none;
+    color: #dc3232;
+    cursor: pointer;
+}
+
+/* Matching Pairs */
+.nl-matching-pairs {
+    margin: 15px 0;
+}
+
+.nl-matching-pair {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.nl-matching-separator {
+    color: #666;
+    margin: 0 5px;
+}
+
+.nl-remove-pair {
+    background: none;
+    border: none;
+    color: #dc3232;
+    cursor: pointer;
+}
+
+/* Fill in Blanks */
+.nl-blanks-list {
+    margin: 10px 0;
+}
+
+.nl-blank-answer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.nl-remove-blank {
+    background: none;
+    border: none;
+    color: #dc3232;
+    cursor: pointer;
+}
+
+/* Action Buttons */
+.nl-add-option,
+.nl-add-pair,
+.nl-add-blank {
+    margin-top: 10px;
+}
+
+/* Drag and Drop */
+.nl-question.ui-sortable-helper {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.nl-question.ui-sortable-placeholder {
+    visibility: visible !important;
+    background: #f8f9fa;
+    border: 2px dashed #ddd;
+}

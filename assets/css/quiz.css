@@ -1,0 +1,116 @@
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .nl-quiz {
+        padding: 20px;
+    }
+
+    .nl-matching-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .nl-blank-input {
+        width: 120px;
+    }
+}
+
+/* Question Type Icons */
+.nl-question-type {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 0.85em;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    background: #e9ecef;
+    color: #1d2327;
+}
+
+/* Feedback Styles */
+.nl-feedback {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.nl-feedback.correct {
+    background: #d1e7dd;
+    color: #0a3622;
+}
+
+.nl-feedback.incorrect {
+    background: #f8d7da;
+    color: #58151c;
+}
+
+/* Question Navigation */
+.nl-question-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.nl-nav-btn {
+    padding: 8px 15px;
+    background: #f0f0f1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.nl-nav-btn:hover {
+    background: #ddd;
+}
+
+/* Progress Bar */
+.nl-progress-bar {
+    height: 8px;
+    background: #f0f0f1;
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.nl-progress-fill {
+    height: 100%;
+    background: #2271b1;
+    transition: width 0.3s ease;
+}
+
+/* Review Mode */
+.nl-review-mode .nl-question {
+    position: relative;
+}
+
+.nl-review-mode .nl-question.correct {
+    border-left: 4px solid #46b450;
+}
+
+.nl-review-mode .nl-question.incorrect {
+    border-left: 4px solid #dc3232;
+}
+
+/* Loading State */
+.nl-loading {
+    position: relative;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.nl-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2271b1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
