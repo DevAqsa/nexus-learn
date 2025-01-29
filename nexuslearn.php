@@ -23,6 +23,23 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/MenuManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/Settings.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/GeneralSettings.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/PostTypes.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/ProgressTracker.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/Views/TrackingPage.php';
+
+
+
+function nexuslearn_enqueue_admin_scripts($hook) {
+    if (strpos($hook, 'nl-progress-tracking') !== false) {
+        wp_enqueue_style(
+            'nl-progress-tracking',
+            NEXUSLEARN_PLUGIN_URL . 'assets/css/progress-tracking.css',
+            [],
+            NEXUSLEARN_VERSION
+        );
+    }
+}
+add_action('admin_enqueue_scripts', 'nexuslearn_enqueue_admin_scripts');
+
 
 
 
@@ -51,6 +68,7 @@ function nexuslearn_init() {
     new NexusLearn\Core\PostTypes();
     new NexusLearn\Core\Taxonomies();
     new NexusLearn\Admin\MenuManager();
+    new NexusLearn\Core\ProgressTracker();
     
 }
 add_action('plugins_loaded', 'nexuslearn_init');

@@ -68,4 +68,29 @@ class Plugin {
             'show_in_rest' => true
         ]);
     }
+
+
+    // Add to your Plugin.php or create a new Assets.php class
+public function enqueue_scripts() {
+    wp_enqueue_style(
+        'nl-progress-tracking',
+        NEXUSLEARN_PLUGIN_URL . 'assets/css/progress-tracking.css',
+        [],
+        NEXUSLEARN_VERSION
+    );
+
+    wp_enqueue_script(
+        'nl-progress-tracking',
+        NEXUSLEARN_PLUGIN_URL . 'assets/js/progress-tracking.js',
+        ['jquery'],
+        NEXUSLEARN_VERSION,
+        true
+    );
+
+    wp_localize_script('nl-progress-tracking', 'nlProgress', [
+        'nonce' => wp_create_nonce('nl_progress_nonce'),
+        'lessonId' => get_the_ID(),
+        'courseId' => get_post_meta(get_the_ID(), '_nl_course_id', true)
+    ]);
+}
 }

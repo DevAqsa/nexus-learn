@@ -45,13 +45,23 @@ class MenuManager {
         // );
 
         // Tracks
-        add_submenu_page(
-            'edit.php?post_type=nl_course',
-            __('Tracks', 'nexuslearn'),
-            __('Tracks', 'nexuslearn'),
-            'manage_options',
-            'edit.php?post_type=nl_track'
-        );
+        // add_submenu_page(
+        //     'edit.php?post_type=nl_course',
+        //     __('Tracks', 'nexuslearn'),
+        //     __('Tracks', 'nexuslearn'),
+        //     'manage_options',
+        //     'edit.php?post_type=nl_track'
+        // );
+
+       
+add_submenu_page(
+    'edit.php?post_type=nl_course',
+    __('Progress Tracking', 'nexuslearn'),
+    __('Progress Tracking', 'nexuslearn'),
+    'manage_options',
+    'nl-progress-tracking',
+    [new \NexusLearn\Admin\Views\TrackingPage(), 'render']
+);
 
         //difficulties
         add_submenu_page(
