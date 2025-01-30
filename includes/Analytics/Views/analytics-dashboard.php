@@ -89,36 +89,59 @@ $stats = $analytics->get_quiz_statistics($quiz_id);
         </div>
 
         <!-- Question Performance Table -->
-        <div class="nl-table-section">
-            <h3><?php _e('Question Performance', 'nexuslearn'); ?></h3>
-            <div class="nl-table-wrapper">
-                <table class="nl-data-table">
-                    <thead>
-                        <tr>
-                            <th>Question</th>
-                            <th>Total Attempts</th>
-                            <th>Correct Answers</th>
-                            <th>Success Rate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($stats['question_analysis'] as $question): ?>
-                            <tr>
-                                <td><?php echo esc_html($question->question_text); ?></td>
-                                <td><?php echo number_format($question->total_attempts); ?></td>
-                                <td><?php echo number_format($question->correct_answers); ?></td>
-                                <td><?php 
-                                    $success_rate = $question->total_attempts > 0 
-                                        ? ($question->correct_answers / $question->total_attempts) * 100 
-                                        : 0;
-                                    echo number_format($success_rate, 1) . '%'; 
-                                ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+       <!-- Question Performance Table -->
+<div class="nl-chart-container">
+    <div class="nl-chart-header">
+        <h2 class="nl-chart-title"><?php _e('Question Performance', 'nexuslearn'); ?></h2>
+    </div>
+    <table class="nl-analytics-table">
+        <thead>
+            <tr>
+                <th><?php _e('Question', 'nexuslearn'); ?></th>
+                <th><?php _e('Total Attempts', 'nexuslearn'); ?></th>
+                <th><?php _e('Correct Answers', 'nexuslearn'); ?></th>
+                <th><?php _e('Success Rate', 'nexuslearn'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            if (!empty($stats['question_analysis'])) {
+                foreach ($stats['question_analysis'] as $question) {
+                    $success_rate = $question->total_attempts > 0 
+                        ? ($question->correct_answers / $question->total_attempts) * 100 
+                        : 0;
+                    ?>
+                    <tr>
+                        <td><?php echo esc_html($question->question_text); ?></td>
+                        <td><?php echo number_format($question->total_attempts); ?></td>
+                        <td><?php echo number_format($question->correct_answers); ?></td>
+                        <td><?php echo number_format($success_rate, 1) . '%'; ?></td>
+                    </tr>
+                    <?php
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+<style>
+.nl-analytics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.nl-analytics-table th,
+.nl-analytics-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e4e7;
+}
+.nl-analytics-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+</style>
     </div>
 </div>
 
