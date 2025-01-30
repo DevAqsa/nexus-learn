@@ -115,43 +115,25 @@ class QuizManager {
     }
 
     public function save_quiz_meta($post_id) {
+        $security = \NexusLearn\Core\SecurityHandler::getInstance();
+    
         if (!isset($_POST['nl_quiz_settings_nonce']) || 
-            !wp_verify_nonce($_POST['nl_quiz_settings_nonce'], 'nl_quiz_settings')) {
+            !$security->verify_nonce($_POST['nl_quiz_settings_nonce'], 'nl_quiz_settings')) {
             return;
         }
-
+    
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return;
         }
-
-        if (!current_user_can('edit_post', $post_id)) {
+    
+        if (!$security->check_capabilities('edit_post', $post_id)) {
             return;
         }
-
+    
         // Save quiz settings
         if (isset($_POST['quiz_settings'])) {
-            update_post_meta($post_id, '_quiz_settings', $_POST['quiz_settings']);
-        }
-
-        // Save questions
-        global $wpdb;
-        if (isset($_POST['questions'])) {
-            foreach ($_POST['questions'] as $question_id => $question_data) {
-                $wpdb->replace(
-                    $wpdb->prefix . 'nl_quiz_questions',
-                    [
-                        'id' => $question_id,
-                        'quiz_id' => $post_id,
-                        'question_type' => sanitize_text_field($question_data['type']),
-                        'question_text' => wp_kses_post($question_data['text']),
-                        'question_options' => json_encode($question_data['options'] ?? []),
-                        'correct_answer' => sanitize_text_field($question_data['correct_answer']),
-                        'points' => intval($question_data['points']),
-                        'order_index' => intval($question_data['order'])
-                    ],
-                    ['%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d']
-                );
-            }
+            $sanitized_settings = $security->sanitize_quiz_data($_POST['quiz_settings']);
+            update_post_meta($post_id, '_quiz_settings', $sanitized_settings);
         }
     }
 

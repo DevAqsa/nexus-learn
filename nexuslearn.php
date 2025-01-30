@@ -30,6 +30,8 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/QuizDisplay.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizList.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Analytics/QuizAnalytics.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/CourseTemplateHandler.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/SecurityHandler.php';
 
 
 
@@ -128,6 +130,7 @@ function nexuslearn_init() {
     new NexusLearn\Admin\QuizManager();
     new NexusLearn\Frontend\QuizDisplay();
     new NexusLearn\Analytics\QuizAnalytics();
+    new NexusLearn\Admin\CourseTemplateHandler();
     
     
 }

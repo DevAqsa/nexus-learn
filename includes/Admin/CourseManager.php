@@ -15,7 +15,7 @@ class CourseManager {
             [$this, 'render_course_meta_box'],
             'nl_course'
         );
-    }
+    }   
 
     public function render_course_meta_box($post) {
         $duration = get_post_meta($post->ID, '_nl_course_duration', true);
@@ -38,23 +38,29 @@ class CourseManager {
     }
 
     public function save_course_meta($post_id) {
+        $security = \NexusLearn\Core\SecurityHandler::getInstance();
+    
         if (!isset($_POST['nl_course_meta_nonce']) || 
-            !wp_verify_nonce($_POST['nl_course_meta_nonce'], 'nl_course_meta')) {
+            !$security->verify_nonce($_POST['nl_course_meta_nonce'], 'nl_course_meta')) {
             return;
         }
-
+    
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return;
         }
-
+    
+        if (!$security->check_capabilities('edit_post', $post_id)) {
+            return;
+        }
+    
         if (isset($_POST['nl_course_duration'])) {
             update_post_meta($post_id, '_nl_course_duration', 
-                sanitize_text_field($_POST['nl_course_duration']));
+                $security->sanitize_text($_POST['nl_course_duration']));
         }
-
+    
         if (isset($_POST['nl_course_level'])) {
             update_post_meta($post_id, '_nl_course_level', 
-                sanitize_text_field($_POST['nl_course_level']));
+                $security->sanitize_text($_POST['nl_course_level']));
         }
     }
 }
