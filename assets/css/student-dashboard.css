@@ -1,0 +1,274 @@
+/* File: assets/css/student-dashboard.css */
+
+.nl-dashboard-wrapper {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+    background: #f5f6fa;
+}
+
+/* Sidebar Styles */
+.nl-sidebar {
+    background: #fff;
+    padding: 20px;
+    border-right: 1px solid #eaeaea;
+}
+
+.nl-logo {
+    padding: 15px 0;
+    text-align: center;
+}
+
+.nl-logo img {
+    max-width: 150px;
+}
+
+.nl-menu h3 {
+    color: #666;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    margin: 20px 0 10px;
+}
+
+.nl-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nl-menu li {
+    margin: 5px 0;
+}
+
+.nl-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: #666;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nl-menu a:hover, .nl-menu .active a {
+    background: #f0f2ff;
+    color: #4361ee;
+}
+
+.nl-menu .dashicons {
+    margin-right: 10px;
+}
+
+/* Header Styles */
+.nl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.nl-search input {
+    width: 300px;
+    padding: 10px 15px;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+.nl-user-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nl-notifications {
+    position: relative;
+    cursor: pointer;
+}
+
+.nl-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Stats Cards */
+.nl-stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.nl-stat-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nl-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f2ff;
+    color: #4361ee;
+}
+
+.nl-stat-info h4 {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.nl-stat-value {
+    margin: 5px 0 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Course Grid */
+.nl-course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.nl-course-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nl-course-thumbnail img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.nl-course-info {
+    padding: 20px;
+}
+
+.nl-instructor {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.nl-progress-bar {
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    margin-top: 15px;
+}
+
+.nl-progress-fill {
+    height: 100%;
+    background: #4361ee;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+/* Bottom Grid */
+.nl-bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.nl-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nl-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Assignments */
+.nl-assignment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.nl-status {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+}
+
+.nl-status.completed {
+    background: #e3fcef;
+    color: #00875a;
+}
+
+.nl-status.pending {
+    background: #fff0e6;
+    color: #ff5722;
+}
+
+/* Calendar */
+.nl-calendar {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.nl-calendar-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.nl-calendar-nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .nl-dashboard-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .nl-stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .nl-course-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}

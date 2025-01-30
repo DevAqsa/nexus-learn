@@ -131,10 +131,13 @@ function nexuslearn_init() {
     new NexusLearn\Frontend\QuizDisplay();
     new NexusLearn\Analytics\QuizAnalytics();
     new NexusLearn\Admin\CourseTemplateHandler();
+new NexusLearn\Frontend\StudentDashboard();
     
     
 }
 add_action('plugins_loaded', 'nexuslearn_init');
+
+
 
 
 // // Activation Hook
