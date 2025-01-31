@@ -132,9 +132,8 @@ function nexuslearn_init() {
     new NexusLearn\Frontend\QuizDisplay();
     new NexusLearn\Analytics\QuizAnalytics();
     new NexusLearn\Admin\CourseTemplateHandler();
-new NexusLearn\Frontend\StudentDashboard();
-new NexusLearn\Frontend\StudentDashboard();
-    new NexusLearn\Frontend\NotificationHandler();
+    new NexusLearn\Frontend\StudentDashboard();
+    
     
     
 }

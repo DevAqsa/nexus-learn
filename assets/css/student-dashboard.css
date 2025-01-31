@@ -1,116 +1,55 @@
-/* Main Layout */
-.nl-dashboard-wrapper {
+.nl-dashboard-container {
     display: flex;
+    background-color: #F8FAFC;
     min-height: 100vh;
-    background: #f8f9fd;
-}
-
-/* Sidebar Styles */
-.nl-sidebar {
-    width: 250px;
-    background: #fff;
-    border-right: 1px solid #eaeaea;
-    position: fixed;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    z-index: 100;
-}
-
-.nl-logo {
-    padding: 20px;
-    border-bottom: 1px solid #eaeaea;
-}
-
-.nl-menu-title {
-    color: #666;
-    font-size: 12px;
-    padding: 20px 20px 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.nl-menu-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nl-menu-item a {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: #666;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.nl-menu-item.active a {
-    background: #f0f2ff;
-    color: #4361ee;
-}
-
-.nl-menu-item a:hover {
-    background: #f0f2ff;
-    color: #4361ee;
-}
-
-.nl-menu-item .dashicons {
-    margin-right: 10px;
 }
 
 /* Main Content Area */
 .nl-main-content {
     flex: 1;
-    margin-left: 250px;
-    padding: 24px;
-    background: #f8f9fd;
+    margin-left: 260px;
+    padding: 24px 32px;
+    background-color: #F8FAFC;
+    max-width: calc(100% - 260px);
 }
 
-/* Dashboard Header */
-.nl-main-content > h1 {
-    margin: 0 0 24px 0;
-    font-size: 28px;
+/* Header Styles */
+.nl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    background: #F8FAFC;
+}
+
+.nl-header h1 {
+    margin: 0;
+    font-size: 24px;
     font-weight: 500;
-    color: #333;
+    color: #1E293B;
 }
 
 .nl-user-profile {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: #fff;
-    padding: 16px 24px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.nl-user-profile h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 500;
-}
-
-.nl-user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.nl-user-info img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    gap: 8px;
 }
 
 .nl-user-email {
-    color: #666;
+    color: #64748B;
     font-size: 14px;
 }
 
-/* Stats Cards */
-.nl-stats-container {
+.nl-dropdown-toggle {
+    padding: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #64748B;
+}
+
+/* Stats Grid */
+.nl-stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
@@ -118,182 +57,135 @@
 }
 
 .nl-stat-card {
-    background: #fff;
-    padding: 24px;
+    background: white;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.nl-stat-card-header {
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
+    flex-direction: column;
 }
 
 .nl-stat-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    font-size: 20px;
+    font-size: 24px;
+    margin-bottom: 16px;
 }
 
-/* Custom icons colors */
-.nl-enrolled-icon {
-    color: #4361ee;
-    background: #e8f0ff;
-}
-
-.nl-completed-icon {
-    color: #10b981;
-    background: #e6fff2;
-}
-
-.nl-progress-icon {
-    color: #8b5cf6;
-    background: #f3f0ff;
-}
-
-.nl-stat-title {
-    font-size: 14px;
-    color: #666;
-    margin: 0;
-}
+.nl-stat-icon.book { color: #2563EB; }
+.nl-stat-icon.check { color: #10B981; }
+.nl-stat-icon.chart { color: #8B5CF6; }
 
 .nl-stat-value {
     font-size: 32px;
     font-weight: 600;
-    color: #333;
+    color: #1E293B;
+    margin-bottom: 4px;
+}
+
+.nl-stat-label {
+    color: #64748B;
+    font-size: 14px;
+}
+
+/* Content Layout */
+.nl-content-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+}
+
+/* Content Sections */
+.nl-content-section {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+}
+
+.nl-content-section h2 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #1E293B;
+}
+
+.nl-empty-state {
+    color: #64748B;
+    font-size: 14px;
+    text-align: center;
+    padding: 24px;
+}
+
+/* Sidebar */
+.nl-sidebar {
+    width: 260px;
+    background-color: white;
+    padding: 24px 0;
+    position: fixed;
+    height: 100vh;
+    border-right: 1px solid #E2E8F0;
+}
+
+.nl-menu-title {
+    color: #64748B;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 24px;
+    margin-bottom: 16px;
+}
+
+.nl-menu {
+    list-style: none;
+    padding: 0;
     margin: 0;
 }
 
-/* Content Grid */
-.nl-content-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 24px;
-}
-
-/* Courses Section */
-.nl-my-courses {
-    background: #fff;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.nl-my-courses h3 {
-    margin: 0 0 20px 0;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.nl-no-courses {
-    text-align: center;
-    padding: 48px 24px;
-    color: #666;
-    background: #f8f9fd;
-    border-radius: 4px;
-}
-
-/* Assignments & Activities */
-.nl-sidebar-content {
+.nl-menu-item {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    align-items: center;
+    padding: 12px 24px;
+    color: #64748B;
+    text-decoration: none;
+    gap: 12px;
+    transition: all 0.2s;
 }
 
-.nl-upcoming-assignments,
-.nl-recent-activities {
-    background: #fff;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+.nl-menu-item:hover {
+    background-color: #F1F5F9;
+    color: #2563EB;
 }
 
-.nl-upcoming-assignments h3,
-.nl-recent-activities h3 {
-    margin: 0 0 20px 0;
+.nl-menu-item.active {
+    background-color: #EFF6FF;
+    color: #2563EB;
+}
+
+.nl-menu-item i {
+    width: 20px;
     font-size: 18px;
-    font-weight: 500;
 }
 
-.nl-no-assignments,
-.nl-no-activities {
-    text-align: center;
-    padding: 24px;
-    color: #666;
-    background: #f8f9fd;
-    border-radius: 4px;
-}
-
-/* Responsive Design */
 @media (max-width: 1200px) {
-    .nl-stats-container {
+    .nl-content-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .nl-stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 992px) {
-    .nl-content-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width: 768px) {
-    .nl-main-content {
-        margin-left: 0;
-        padding: 16px;
-    }
-    
-    .nl-stats-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .nl-user-profile {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-}
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .nl-dashboard-stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 992px) {
-    .nl-dashboard-content {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .nl-main-content {
-        margin-left: 0;
-        padding: 20px;
-    }
-
     .nl-sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        display: none;
     }
 
-    .nl-sidebar.active {
-        transform: translateX(0);
+    .nl-main-content {
+        margin-left: 0;
+        max-width: 100%;
     }
 
-    .nl-dashboard-stats {
+    .nl-stats-grid {
         grid-template-columns: 1fr;
-    }
-
-    .nl-dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
     }
 }

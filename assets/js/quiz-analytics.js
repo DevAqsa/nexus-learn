@@ -1,4 +1,3 @@
-// File: assets/js/quiz-analytics.js
 jQuery(document).ready(function($) {
     // Initialize Charts
     const scoreCtx = document.getElementById('scoreDistribution').getContext('2d');

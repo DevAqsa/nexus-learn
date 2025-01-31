@@ -1,0 +1,154 @@
+
+
+/* Certificates Section */
+.nl-certificates-section {
+    margin-bottom: 2rem;
+}
+
+.nl-certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.nl-certificate-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.nl-certificate-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.nl-download-cert {
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.nl-download-cert:hover {
+    background: #1D4ED8;
+}
+
+/* Progress Section */
+.nl-progress-section {
+    margin-bottom: 2rem;
+}
+
+.nl-progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.nl-progress-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.nl-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.nl-progress-bar {
+    background: #E2E8F0;
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.nl-progress-fill {
+    background: #2563EB;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.nl-progress-details {
+    margin-top: 0.5rem;
+    color: #64748B;
+    font-size: 0.875rem;
+}
+
+/* Profile Section */
+.nl-profile-section {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.nl-profile-form {
+    max-width: 600px;
+}
+
+.nl-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.nl-form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #1E293B;
+    font-weight: 500;
+}
+
+.nl-form-group input[type="text"],
+.nl-form-group textarea,
+.nl-form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 4px;
+    background: #F8FAFC;
+}
+
+.nl-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nl-checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: normal;
+}
+
+.nl-submit-btn {
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.nl-submit-btn:hover {
+    background: #1D4ED8;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .nl-certificates-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nl-profile-form {
+        max-width: 100%;
+    }
+}
