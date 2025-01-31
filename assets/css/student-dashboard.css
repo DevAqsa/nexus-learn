@@ -1,274 +1,299 @@
-/* File: assets/css/student-dashboard.css */
-
+/* Main Layout */
 .nl-dashboard-wrapper {
-    display: grid;
-    grid-template-columns: 250px 1fr;
+    display: flex;
     min-height: 100vh;
-    background: #f5f6fa;
+    background: #f8f9fd;
 }
 
 /* Sidebar Styles */
 .nl-sidebar {
+    width: 250px;
     background: #fff;
-    padding: 20px;
     border-right: 1px solid #eaeaea;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
 }
 
 .nl-logo {
-    padding: 15px 0;
-    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
 }
 
-.nl-logo img {
-    max-width: 150px;
-}
-
-.nl-menu h3 {
+.nl-menu-title {
     color: #666;
-    font-size: 0.9em;
+    font-size: 12px;
+    padding: 20px 20px 10px;
     text-transform: uppercase;
-    margin: 20px 0 10px;
+    letter-spacing: 0.5px;
 }
 
-.nl-menu ul {
+.nl-menu-items {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.nl-menu li {
-    margin: 5px 0;
-}
-
-.nl-menu a {
+.nl-menu-item a {
     display: flex;
     align-items: center;
-    padding: 12px 15px;
+    padding: 12px 20px;
     color: #666;
     text-decoration: none;
-    border-radius: 8px;
     transition: all 0.3s ease;
 }
 
-.nl-menu a:hover, .nl-menu .active a {
+.nl-menu-item.active a {
     background: #f0f2ff;
     color: #4361ee;
 }
 
-.nl-menu .dashicons {
+.nl-menu-item a:hover {
+    background: #f0f2ff;
+    color: #4361ee;
+}
+
+.nl-menu-item .dashicons {
     margin-right: 10px;
 }
 
-/* Header Styles */
-.nl-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 30px;
-    background: #fff;
-    border-bottom: 1px solid #eaeaea;
+/* Main Content Area */
+.nl-main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 24px;
+    background: #f8f9fd;
 }
 
-.nl-search input {
-    width: 300px;
-    padding: 10px 15px;
-    border: 1px solid #eaeaea;
-    border-radius: 8px;
-    font-size: 0.9em;
-}
-
-.nl-user-menu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.nl-notifications {
-    position: relative;
-    cursor: pointer;
+/* Dashboard Header */
+.nl-main-content > h1 {
+    margin: 0 0 24px 0;
+    font-size: 28px;
+    font-weight: 500;
+    color: #333;
 }
 
 .nl-user-profile {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    background: #fff;
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nl-user-profile h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.nl-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nl-user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nl-user-email {
+    color: #666;
+    font-size: 14px;
 }
 
 /* Stats Cards */
 .nl-stats-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
 }
 
 .nl-stat-card {
     background: #fff;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nl-stat-card-header {
     display: flex;
     align-items: center;
-    gap: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    gap: 12px;
+    margin-bottom: 16px;
 }
 
 .nl-stat-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f0f2ff;
-    color: #4361ee;
+    border-radius: 8px;
+    font-size: 20px;
 }
 
-.nl-stat-info h4 {
-    margin: 0;
+/* Custom icons colors */
+.nl-enrolled-icon {
+    color: #4361ee;
+    background: #e8f0ff;
+}
+
+.nl-completed-icon {
+    color: #10b981;
+    background: #e6fff2;
+}
+
+.nl-progress-icon {
+    color: #8b5cf6;
+    background: #f3f0ff;
+}
+
+.nl-stat-title {
+    font-size: 14px;
     color: #666;
-    font-size: 0.9em;
+    margin: 0;
 }
 
 .nl-stat-value {
-    margin: 5px 0 0;
-    font-size: 1.5em;
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: 600;
     color: #333;
+    margin: 0;
 }
 
-/* Course Grid */
-.nl-course-grid {
+/* Content Grid */
+.nl-content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
 }
 
-.nl-course-card {
+/* Courses Section */
+.nl-my-courses {
     background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.nl-course-thumbnail img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-}
-
-.nl-course-info {
-    padding: 20px;
-}
-
-.nl-instructor {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
-}
-
-.nl-progress-bar {
-    height: 4px;
-    background: #eee;
-    border-radius: 2px;
-    margin-top: 15px;
-}
-
-.nl-progress-fill {
-    height: 100%;
-    background: #4361ee;
-    border-radius: 2px;
-    transition: width 0.3s ease;
-}
-
-/* Bottom Grid */
-.nl-bottom-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.nl-section {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.nl-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-/* Assignments */
-.nl-assignment-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #eaeaea;
-}
-
-.nl-status {
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 0.8em;
-}
-
-.nl-status.completed {
-    background: #e3fcef;
-    color: #00875a;
-}
-
-.nl-status.pending {
-    background: #fff0e6;
-    color: #ff5722;
-}
-
-/* Calendar */
-.nl-calendar {
     border-radius: 8px;
-    overflow: hidden;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.nl-calendar-nav {
-    display: flex;
-    gap: 10px;
+.nl-my-courses h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 500;
 }
 
-.nl-calendar-nav button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
+.nl-no-courses {
+    text-align: center;
+    padding: 48px 24px;
     color: #666;
+    background: #f8f9fd;
+    border-radius: 4px;
+}
+
+/* Assignments & Activities */
+.nl-sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.nl-upcoming-assignments,
+.nl-recent-activities {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nl-upcoming-assignments h3,
+.nl-recent-activities h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.nl-no-assignments,
+.nl-no-activities {
+    text-align: center;
+    padding: 24px;
+    color: #666;
+    background: #f8f9fd;
+    border-radius: 4px;
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-    .nl-dashboard-wrapper {
-        grid-template-columns: 1fr;
+@media (max-width: 1200px) {
+    .nl-stats-container {
+        grid-template-columns: repeat(2, 1fr);
     }
-    
-    .nl-sidebar {
-        display: none;
+}
+
+@media (max-width: 992px) {
+    .nl-content-grid {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 768px) {
+    .nl-main-content {
+        margin-left: 0;
+        padding: 16px;
+    }
+    
     .nl-stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-user-profile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .nl-dashboard-stats {
         grid-template-columns: repeat(2, 1fr);
     }
-    
-    .nl-course-grid {
+}
+
+@media (max-width: 992px) {
+    .nl-dashboard-content {
         grid-template-columns: 1fr;
     }
-    
-    .nl-bottom-grid {
+}
+
+@media (max-width: 768px) {
+    .nl-main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .nl-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .nl-sidebar.active {
+        transform: translateX(0);
+    }
+
+    .nl-dashboard-stats {
         grid-template-columns: 1fr;
+    }
+
+    .nl-dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
     }
 }

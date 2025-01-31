@@ -36,6 +36,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/SecurityHandler.php';
 
 
 
+
 function nexuslearn_enqueue_admin_scripts($hook) {
 
     if (strpos($hook, 'nl-progress-tracking') !== false) {
@@ -132,12 +133,25 @@ function nexuslearn_init() {
     new NexusLearn\Analytics\QuizAnalytics();
     new NexusLearn\Admin\CourseTemplateHandler();
 new NexusLearn\Frontend\StudentDashboard();
+new NexusLearn\Frontend\StudentDashboard();
+    new NexusLearn\Frontend\NotificationHandler();
     
     
 }
 add_action('plugins_loaded', 'nexuslearn_init');
 
-
+function register_student_dashboard_page() {
+    if (!get_page_by_path('student-dashboard')) {
+        wp_insert_post([
+            'post_title' => 'Student Dashboard',
+            'post_content' => '[nexuslearn_student_dashboard]',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'post_name' => 'student-dashboard'
+        ]);
+    }
+}
+register_activation_hook(__FILE__, 'register_student_dashboard_page');
 
 
 // // Activation Hook
