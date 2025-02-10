@@ -32,27 +32,30 @@ $user_info = get_userdata($user_id);
                     <?php _e('Certificates', 'nexuslearn'); ?>
                 </a>
             </li>
-
-
             <li class="nl-nav-item">
-    <a href="?view=assignments" class="<?php echo $current_view === 'assignments' ? 'active' : ''; ?>">
-        <i class="dashicons dashicons-clipboard"></i>
-        <?php _e('Assignments', 'nexuslearn'); ?>
-    </a>
-</li>
-<li class="nl-nav-item">
+                <a href="?view=assignments" class="<?php echo $current_view === 'assignments' ? 'active' : ''; ?>">
+                    <i class="dashicons dashicons-clipboard"></i>
+                    <?php _e('Assignments', 'nexuslearn'); ?>
+                </a>
+            </li>
+            <li class="nl-nav-item">
                 <a href="?view=attendance" class="<?php echo $current_view === 'attendance' ? 'active' : ''; ?>">
                     <i class="dashicons dashicons-calendar-alt"></i>
                     <?php _e('Attendance', 'nexuslearn'); ?>
                 </a>
             </li>
-
-<li class="nl-nav-item">
-    <a href="?view=settings" class="<?php echo $current_view === 'settings' ? 'active' : ''; ?>">
-        <i class="dashicons dashicons-admin-generic"></i>
-        <?php _e('Settings', 'nexuslearn'); ?>
-    </a>
-</li>
+            <li class="nl-nav-item">
+                <a href="?view=notes" class="<?php echo $current_view === 'notes' ? 'active' : ''; ?>">
+                    <i class="dashicons dashicons-welcome-write-blog"></i>
+                    <?php _e('My Notes', 'nexuslearn'); ?>
+                </a>
+            </li>
+            <li class="nl-nav-item">
+                <a href="?view=settings" class="<?php echo $current_view === 'settings' ? 'active' : ''; ?>">
+                    <i class="dashicons dashicons-admin-generic"></i>
+                    <?php _e('Settings', 'nexuslearn'); ?>
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -72,6 +75,18 @@ $user_info = get_userdata($user_id);
                     case 'certificates':
                         _e('Certificates', 'nexuslearn');
                         break;
+                    case 'assignments':
+                        _e('Assignments', 'nexuslearn');
+                        break;
+                    case 'attendance':
+                        _e('Attendance', 'nexuslearn');
+                        break;
+                    case 'notes':
+                        _e('My Notes', 'nexuslearn');
+                        break;
+                    case 'settings':
+                        _e('Settings', 'nexuslearn');
+                        break;
                     default:
                         _e('My Dashboard', 'nexuslearn');
                         break;
@@ -84,36 +99,48 @@ $user_info = get_userdata($user_id);
                     <button class="nl-dropdown-toggle">
                         <i class="dashicons dashicons-admin-users"></i>
                     </button>
+                    <div class="nl-dropdown-menu">
+                        <a href="?view=settings">
+                            <i class="dashicons dashicons-admin-generic"></i>
+                            <?php _e('Settings', 'nexuslearn'); ?>
+                        </a>
+                        <a href="<?php echo wp_logout_url(home_url()); ?>">
+                            <i class="dashicons dashicons-logout"></i>
+                            <?php _e('Logout', 'nexuslearn'); ?>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Dynamic Content -->
         <?php
-       
-       switch ($current_view) {
-           case 'overview':
-               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/overview.php';
-               break;
-           case 'courses':
-               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/courses.php';
-               break;
-           case 'progress':
-               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/progress.php';
-               break;
-           case 'certificates':
-               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/certificates.php';
-               break;
-           case 'assignments':
-               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/assignments.php';
-               break;
-               case 'attendance':
+        switch ($current_view) {
+            case 'overview':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/overview.php';
+                break;
+            case 'courses':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/courses.php';
+                break;
+            case 'progress':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/progress.php';
+                break;
+            case 'certificates':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/certificates.php';
+                break;
+            case 'assignments':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/assignments.php';
+                break;
+            case 'attendance':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/attendance.php';
                 break;
-               case 'settings':
+            case 'notes':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/notes.php';
+                break;
+            case 'settings':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/settings.php';
                 break;
-       }
+        }
         ?>
     </div>
 </div>

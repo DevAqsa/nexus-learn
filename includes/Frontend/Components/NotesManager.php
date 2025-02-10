@@ -4,121 +4,126 @@ namespace NexusLearn\Frontend\Components;
 class NotesManager {
     public function __construct() {
         add_action('wp_ajax_nl_save_note', [$this, 'save_note']);
-        add_action('wp_ajax_nl_delete_note', [$this, 'delete_note']);
-    }
-
-    public function render_notes_section($user_id) {
-        $notes = $this->get_user_notes($user_id);
-        ob_start();
-        ?>
-        <div class="nl-notes-section">
-            <div class="nl-section-header">
-                <h2><?php _e('My Notes', 'nexuslearn'); ?></h2>
-                <button class="nl-button nl-button-primary" id="nl-add-note">
-                    <?php _e('Add Note', 'nexuslearn'); ?>
-                </button>
-            </div>
-
-            <div class="nl-notes-container">
-                <div class="nl-notes-sidebar">
-                    <div class="nl-notes-filter">
-                        <input type="text" placeholder="<?php _e('Search notes...', 'nexuslearn'); ?>" 
-                               class="nl-search-notes">
-                    </div>
-                    <div class="nl-notes-list">
-                        <?php if (!empty($notes)): ?>
-                            <?php foreach ($notes as $note): ?>
-                                <div class="nl-note-item" data-note-id="<?php echo esc_attr($note['id']); ?>">
-                                    <h4><?php echo esc_html($note['title']); ?></h4>
-                                    <span class="nl-note-date">
-                                        <?php echo date_i18n(get_option('date_format'), strtotime($note['created_at'])); ?>
-                                    </span>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p class="nl-empty-notes"><?php _e('No notes yet', 'nexuslearn'); ?></p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="nl-note-editor">
-                    <input type="text" id="nl-note-title" placeholder="<?php _e('Note title', 'nexuslearn'); ?>">
-                    <textarea id="nl-note-content" placeholder="<?php _e('Start writing...', 'nexuslearn'); ?>"></textarea>
-                    <div class="nl-editor-actions">
-                        <button class="nl-button nl-button-secondary" id="nl-cancel-note">
-                            <?php _e('Cancel', 'nexuslearn'); ?>
-                        </button>
-                        <button class="nl-button nl-button-primary" id="nl-save-note">
-                            <?php _e('Save Note', 'nexuslearn'); ?>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-        return ob_get_clean();
-    }
-
-    private function get_user_notes($user_id) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'nexuslearn_notes';
-        
-        return $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM {$table} WHERE user_id = %d ORDER BY created_at DESC",
-            $user_id
-        ), ARRAY_A);
+        add_action('wp_ajax_nl_get_notes', [$this, 'get_notes']);
+        add_action('wp_ajax_nl_get_course_lessons', [$this, 'get_course_lessons']);
     }
 
     public function save_note() {
         check_ajax_referer('nl_dashboard_nonce', 'nonce');
         
-        $user_id = get_current_user_id();
-        $title = sanitize_text_field($_POST['title']);
-        $content = wp_kses_post($_POST['content']);
-        
+        if (empty($_POST['title']) || empty($_POST['content'])) {
+            wp_send_json_error(['message' => 'Title and content are required']);
+            return;
+        }
+
         global $wpdb;
-        $table = $wpdb->prefix . 'nexuslearn_notes';
+        $table_name = $wpdb->prefix . 'nexuslearn_notes';
+
+        // Create the table if it doesn't exist
+        $this->create_notes_table();
+
+        $data = [
+            'user_id' => get_current_user_id(),
+            'title' => sanitize_text_field($_POST['title']),
+            'content' => wp_kses_post($_POST['content']),
+            'course_id' => !empty($_POST['course_id']) ? intval($_POST['course_id']) : null,
+            'lesson_id' => !empty($_POST['lesson_id']) ? intval($_POST['lesson_id']) : null,
+            'created_at' => current_time('mysql')
+        ];
+
+        $result = $wpdb->insert($table_name, $data);
+
+        if ($result === false) {
+            wp_send_json_error([
+                'message' => 'Database error: ' . $wpdb->last_error,
+                'sql' => $wpdb->last_query
+            ]);
+            return;
+        }
+
+        wp_send_json_success([
+            'message' => 'Note saved successfully',
+            'note_id' => $wpdb->insert_id
+        ]);
+    }
+
+    private function create_notes_table() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'nexuslearn_notes';
         
-        $result = $wpdb->insert(
-            $table,
-            [
-                'user_id' => $user_id,
-                'title' => $title,
-                'content' => $content,
-                'created_at' => current_time('mysql')
-            ],
-            ['%d', '%s', '%s', '%s']
-        );
-        
-        if ($result) {
-            wp_send_json_success(['message' => __('Note saved successfully', 'nexuslearn')]);
-        } else {
-            wp_send_json_error(['message' => __('Failed to save note', 'nexuslearn')]);
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+            $charset_collate = $wpdb->get_charset_collate();
+            
+            $sql = "CREATE TABLE $table_name (
+                id bigint(20) NOT NULL AUTO_INCREMENT,
+                user_id bigint(20) NOT NULL,
+                title varchar(255) NOT NULL,
+                content longtext NOT NULL,
+                course_id bigint(20) DEFAULT NULL,
+                lesson_id bigint(20) DEFAULT NULL,
+                created_at datetime DEFAULT CURRENT_TIMESTAMP,
+                updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                PRIMARY KEY  (id),
+                KEY user_id (user_id),
+                KEY course_id (course_id),
+                KEY lesson_id (lesson_id)
+            ) $charset_collate;";
+            
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            dbDelta($sql);
         }
     }
 
-    public function delete_note() {
+    public function get_notes() {
         check_ajax_referer('nl_dashboard_nonce', 'nonce');
         
-        $note_id = intval($_POST['note_id']);
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'nexuslearn_notes';
         $user_id = get_current_user_id();
         
-        global $wpdb;
-        $table = $wpdb->prefix . 'nexuslearn_notes';
+        // Create table if it doesn't exist
+        $this->create_notes_table();
         
-        $result = $wpdb->delete(
-            $table,
-            [
-                'id' => $note_id,
-                'user_id' => $user_id
-            ],
-            ['%d', '%d']
+        $query = $wpdb->prepare(
+            "SELECT n.*, c.post_title as course_title 
+            FROM {$table_name} n 
+            LEFT JOIN {$wpdb->posts} c ON n.course_id = c.ID 
+            WHERE n.user_id = %d 
+            ORDER BY n.created_at DESC",
+            $user_id
         );
         
-        if ($result) {
-            wp_send_json_success(['message' => __('Note deleted successfully', 'nexuslearn')]);
-        } else {
-            wp_send_json_error(['message' => __('Failed to delete note', 'nexuslearn')]);
-        }
+        $notes = $wpdb->get_results($query);
+        wp_send_json_success($notes);
     }
+
+    public function get_course_lessons() {
+        check_ajax_referer('nl_dashboard_nonce', 'nonce');
+        
+        $course_id = isset($_POST['course_id']) ? intval($_POST['course_id']) : 0;
+        if (!$course_id) {
+            wp_send_json_error(['message' => 'Invalid course ID']);
+            return;
+        }
+        
+        $lessons = get_posts([
+            'post_type' => 'nl_lesson',
+            'post_parent' => $course_id,
+            'posts_per_page' => -1,
+            'orderby' => 'menu_order',
+            'order' => 'ASC'
+        ]);
+        
+        $formatted_lessons = array_map(function($lesson) {
+            return [
+                'id' => $lesson->ID,
+                'title' => $lesson->post_title
+            ];
+        }, $lessons);
+        
+        wp_send_json_success($formatted_lessons);
+    }
+
+
+    
 }

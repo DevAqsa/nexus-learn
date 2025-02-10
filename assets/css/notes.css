@@ -1,0 +1,390 @@
+/* Notes Section Layout */
+.nl-notes-section {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Actions */
+.nl-section-header {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nl-header-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+/* Search Box */
+.nl-search-box {
+    position: relative;
+    width: 300px;
+}
+
+.nl-search-box input {
+    width: 100%;
+    padding: 8px 16px 8px 36px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.nl-search-box input:focus {
+    border-color: #4299e1;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+}
+
+.nl-search-box .dashicons {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #718096;
+}
+
+/* Notes Container Layout */
+.nl-notes-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    min-height: 600px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+/* Notes Sidebar */
+.nl-notes-sidebar {
+    border-right: 1px solid #e2e8f0;
+    background: #f8fafc;
+    padding: 16px;
+}
+
+.nl-notes-filters {
+    margin-bottom: 16px;
+}
+
+.nl-notes-filters select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: white;
+}
+
+/* Notes List */
+.nl-notes-list {
+    overflow-y: auto;
+    max-height: calc(100vh - 300px);
+}
+
+.nl-note-item {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nl-note-item:hover {
+    border-color: #4299e1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nl-note-item.active {
+    border-color: #4299e1;
+    background-color: #ebf8ff;
+}
+
+.nl-note-item h4 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    color: #2d3748;
+}
+
+.nl-note-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #718096;
+}
+
+/* Notes Editor */
+.nl-notes-editor {
+    padding: 20px;
+    background: white;
+}
+
+.nl-editor-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #718096;
+    text-align: center;
+}
+
+.nl-editor-placeholder .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: #a0aec0;
+}
+
+.nl-editor-header {
+    margin-bottom: 20px;
+}
+
+#nl-note-title {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.nl-editor-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.nl-editor-meta select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+/* Editor Content */
+.nl-editor-body {
+    margin-bottom: 20px;
+}
+
+.wp-editor-container {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+/* Editor Footer */
+.nl-editor-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Buttons */
+.nl-button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nl-button-primary {
+    background-color: #4299e1;
+    color: white;
+}
+
+.nl-button-primary:hover {
+    background-color: #3182ce;
+}
+
+.nl-button-secondary {
+    background-color: #edf2f7;
+    color: #2d3748;
+}
+
+.nl-button-secondary:hover {
+    background-color: #e2e8f0;
+}
+
+/* Loading State */
+.nl-loading {
+    padding: 20px;
+    text-align: center;
+    color: #718096;
+}
+
+/* Empty State */
+.nl-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #718096;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .nl-notes-container {
+        grid-template-columns: 250px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nl-notes-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-notes-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .nl-search-box {
+        width: 100%;
+    }
+    
+    .nl-header-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* Rich Text Editor Customizations */
+.mce-toolbar .mce-btn button {
+    padding: 4px 8px;
+}
+
+.mce-toolbar .mce-btn {
+    margin: 2px;
+}
+
+/* Custom Scrollbar */
+.nl-notes-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.nl-notes-list::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.nl-notes-list::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 3px;
+}
+
+.nl-notes-list::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Notifications */
+.nl-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+}
+
+.nl-notification-success {
+    background-color: #48bb78;
+}
+
+.nl-notification-error {
+    background-color: #f56565;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ---------------------------------- */
+
+.nl-note-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nl-note-item:hover {
+    border-color: #4299e1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nl-note-item.active {
+    border-color: #4299e1;
+    background-color: #ebf8ff;
+}
+
+.nl-note-content {
+    flex: 1;
+}
+
+.nl-note-item h4 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    color: #2d3748;
+}
+
+.nl-note-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #718096;
+}
+
+.nl-note-actions {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.nl-note-item:hover .nl-note-actions {
+    opacity: 1;
+}
+
+.nl-delete-note {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #e53e3e;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.nl-delete-note:hover {
+    opacity: 1;
+}
+
+.nl-delete-note .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}

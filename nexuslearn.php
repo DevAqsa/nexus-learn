@@ -34,6 +34,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/CourseTemplateHandler.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/SecurityHandler.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/functions.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/StudentSettings.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/NotesManager.php';
 
 
 
@@ -136,6 +137,7 @@ function nexuslearn_init() {
     new NexusLearn\Analytics\QuizAnalytics();
     new NexusLearn\Admin\CourseTemplateHandler();
     new NexusLearn\Frontend\StudentDashboard();
+    new NexusLearn\Frontend\Components\NotesManager();
     
     
     
@@ -156,7 +158,30 @@ function register_student_dashboard_page() {
 }
 register_activation_hook(__FILE__, 'register_student_dashboard_page');
 
+register_activation_hook(__FILE__, function() {
+    // Add the database creation code here
+    global $wpdb;
+    $charset_collate = $wpdb->get_charset_collate();
+    $table_name = $wpdb->prefix . 'nexuslearn_notes';
 
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        user_id bigint(20) NOT NULL,
+        title varchar(255) NOT NULL,
+        content longtext NOT NULL,
+        course_id bigint(20) DEFAULT NULL,
+        lesson_id bigint(20) DEFAULT NULL,
+        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+        updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY  (id),
+        KEY user_id (user_id),
+        KEY course_id (course_id),
+        KEY lesson_id (lesson_id)
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+});
 
 
 // // Activation Hook
