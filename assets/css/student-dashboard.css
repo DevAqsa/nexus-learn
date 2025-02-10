@@ -785,3 +785,219 @@
 .nl-status.pending { background: #fff3cd; }
 .nl-status.submitted { background: #d1ecf1; }
 .nl-status.graded { background: #d4edda; }
+
+
+/* ---------------------------------------------------- */
+
+
+/* Settings Container */
+.nl-settings-container {
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Headers */
+.nl-section-header {
+    margin-bottom: 2rem;
+}
+
+.nl-section-header h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 0 0.5rem 0;
+}
+
+.nl-subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Settings Sections */
+.nl-settings-section {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+}
+
+.nl-settings-section h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+/* Form Elements */
+.nl-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.nl-form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.nl-form-group input[type="text"],
+.nl-form-group input[type="email"],
+.nl-form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.nl-form-group input[type="text"]:focus,
+.nl-form-group input[type="email"]:focus,
+.nl-form-group select:focus {
+    border-color: #4299e1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+/* Checkbox Styles */
+.nl-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+}
+
+.nl-checkbox input[type="checkbox"] {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Select Dropdown */
+.nl-form-group select {
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Form Actions */
+.nl-form-actions {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.nl-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.nl-button-primary {
+    background-color: #4299e1;
+    color: white;
+}
+
+.nl-button-primary:hover {
+    background-color: #3182ce;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .nl-settings-container {
+    background: #1a202c;
+    color: #e2e8f0;
+}
+
+body.dark-mode .nl-settings-section {
+    background: #2d3748;
+}
+
+body.dark-mode .nl-section-header h2,
+body.dark-mode .nl-settings-section h3 {
+    color: #e2e8f0;
+}
+
+body.dark-mode .nl-subtitle {
+    color: #a0aec0;
+}
+
+body.dark-mode .nl-form-group label {
+    color: #e2e8f0;
+}
+
+body.dark-mode .nl-form-group input[type="text"],
+body.dark-mode .nl-form-group input[type="email"],
+body.dark-mode .nl-form-group select {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .nl-settings-container {
+        padding: 1rem;
+    }
+
+    .nl-settings-section {
+        padding: 1rem;
+    }
+
+    .nl-form-group input[type="text"],
+    .nl-form-group input[type="email"],
+    .nl-form-group select {
+        padding: 0.5rem;
+    }
+}
+
+/* Success Message Animation */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.nl-settings-success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #48bb78;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    animation: fadeInOut 3s ease-in-out forwards;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading State */
+.nl-settings-loading {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.nl-settings-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3182ce;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}

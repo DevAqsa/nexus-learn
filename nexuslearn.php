@@ -33,6 +33,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Analytics/QuizAnalytics.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/CourseTemplateHandler.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/SecurityHandler.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/functions.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/StudentSettings.php';
 
 
 

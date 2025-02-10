@@ -40,6 +40,19 @@ $user_info = get_userdata($user_id);
         <?php _e('Assignments', 'nexuslearn'); ?>
     </a>
 </li>
+<li class="nl-nav-item">
+                <a href="?view=attendance" class="<?php echo $current_view === 'attendance' ? 'active' : ''; ?>">
+                    <i class="dashicons dashicons-calendar-alt"></i>
+                    <?php _e('Attendance', 'nexuslearn'); ?>
+                </a>
+            </li>
+
+<li class="nl-nav-item">
+    <a href="?view=settings" class="<?php echo $current_view === 'settings' ? 'active' : ''; ?>">
+        <i class="dashicons dashicons-admin-generic"></i>
+        <?php _e('Settings', 'nexuslearn'); ?>
+    </a>
+</li>
         </ul>
     </div>
 
@@ -94,6 +107,12 @@ $user_info = get_userdata($user_id);
            case 'assignments':
                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/assignments.php';
                break;
+               case 'attendance':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/attendance.php';
+                break;
+               case 'settings':
+                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/settings.php';
+                break;
        }
         ?>
     </div>
