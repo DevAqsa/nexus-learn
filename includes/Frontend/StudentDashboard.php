@@ -1,18 +1,64 @@
 <?php
 namespace NexusLearn\Frontend;
 
+use NexusLearn\Frontend\Components\CertificatesManager;
+use NexusLearn\Frontend\Components\ProgressTracker;
+use NexusLearn\Frontend\Components\ProfileManager;
+
 class StudentDashboard {
     private $certificates_manager;
     private $progress_tracker;
     private $profile_manager;
+    
 
     public function __construct() {
-        $this->certificates_manager = new Components\CertificatesManager();
-        $this->progress_tracker = new Components\ProgressTracker();
-        $this->profile_manager = new Components\ProfileManager();
+        $this->certificates_manager = new CertificatesManager();
+        $this->progress_tracker = new ProgressTracker();
+        $this->profile_manager = new ProfileManager();
 
         add_shortcode('nexuslearn_student_dashboard', [$this, 'render_dashboard']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+    }
+
+    public function render_dashboard() {
+        if (!is_user_logged_in()) {
+            return $this->render_login_required();
+        }
+
+        ob_start();
+        
+        // Make class properties available to templates
+        $certificates_manager = $this->certificates_manager;
+        $progress_tracker = $this->progress_tracker;
+        $profile_manager = $this->profile_manager;
+        
+        // Load the main dashboard template
+        include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/main.php';
+        
+        return ob_get_clean();
+    }
+
+    private function load_template($template) {
+        // Make class properties available to templates
+        $certificates_manager = $this->certificates_manager;
+        $progress_tracker = $this->progress_tracker;
+        $profile_manager = $this->profile_manager;
+        
+        include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/' . $template . '.php';
+    }
+
+    private function render_login_required() {
+        ob_start();
+        ?>
+        <div class="nl-login-required">
+            <h2><?php _e('Login Required', 'nexuslearn'); ?></h2>
+            <p><?php _e('Please log in to access your dashboard.', 'nexuslearn'); ?></p>
+            <a href="<?php echo wp_login_url(get_permalink()); ?>" class="nl-button nl-button-primary">
+                <?php _e('Log In', 'nexuslearn'); ?>
+            </a>
+        </div>
+        <?php
+        return ob_get_clean();
     }
 
     public function enqueue_assets() {
@@ -39,50 +85,5 @@ class StudentDashboard {
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('nl_dashboard_nonce')
         ]);
-    }
-
-    public function render_dashboard() {
-        if (!is_user_logged_in()) {
-            return $this->render_login_required();
-        }
-
-        ob_start();
-        
-        // Load the main dashboard template
-        include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/main.php';
-        
-        // Load section templates based on current view
-        $view = isset($_GET['view']) ? sanitize_key($_GET['view']) : 'overview';
-        
-        switch ($view) {
-            case 'certificates':
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/certificates.php';
-                break;
-            case 'courses':
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/courses.php';
-                break;
-            case 'progress':
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/progress.php';
-                break;
-            default:
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/overview.php';
-                break;
-        }
-        
-        return ob_get_clean();
-    }
-
-    private function render_login_required() {
-        ob_start();
-        ?>
-        <div class="nl-login-required">
-            <h2><?php _e('Login Required', 'nexuslearn'); ?></h2>
-            <p><?php _e('Please log in to access your dashboard.', 'nexuslearn'); ?></p>
-            <a href="<?php echo wp_login_url(get_permalink()); ?>" class="nl-button nl-button-primary">
-                <?php _e('Log In', 'nexuslearn'); ?>
-            </a>
-        </div>
-        <?php
-        return ob_get_clean();
     }
 }

@@ -32,6 +32,8 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/QuizList.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Analytics/QuizAnalytics.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Admin/CourseTemplateHandler.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/SecurityHandler.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/functions.php';
+
 
 
 
@@ -136,6 +138,7 @@ function nexuslearn_init() {
     
     
     
+    
 }
 add_action('plugins_loaded', 'nexuslearn_init');
 
@@ -151,6 +154,8 @@ function register_student_dashboard_page() {
     }
 }
 register_activation_hook(__FILE__, 'register_student_dashboard_page');
+
+
 
 
 // // Activation Hook

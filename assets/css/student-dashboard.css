@@ -1,191 +1,665 @@
+/* Main Layout */
 .nl-dashboard-container {
     display: flex;
-    background-color: #F8FAFC;
     min-height: 100vh;
-}
-
-/* Main Content Area */
-.nl-main-content {
-    flex: 1;
-    margin-left: 260px;
-    padding: 24px 32px;
-    background-color: #F8FAFC;
-    max-width: calc(100% - 260px);
-}
-
-/* Header Styles */
-.nl-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    background: #F8FAFC;
-}
-
-.nl-header h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 500;
-    color: #1E293B;
-}
-
-.nl-user-profile {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.nl-user-email {
-    color: #64748B;
-    font-size: 14px;
-}
-
-.nl-dropdown-toggle {
-    padding: 8px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #64748B;
-}
-
-/* Stats Grid */
-.nl-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 24px;
-}
-
-.nl-stat-card {
-    background: white;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-}
-
-.nl-stat-icon {
-    font-size: 24px;
-    margin-bottom: 16px;
-}
-
-.nl-stat-icon.book { color: #2563EB; }
-.nl-stat-icon.check { color: #10B981; }
-.nl-stat-icon.chart { color: #8B5CF6; }
-
-.nl-stat-value {
-    font-size: 32px;
-    font-weight: 600;
-    color: #1E293B;
-    margin-bottom: 4px;
-}
-
-.nl-stat-label {
-    color: #64748B;
-    font-size: 14px;
-}
-
-/* Content Layout */
-.nl-content-layout {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 24px;
-}
-
-/* Content Sections */
-.nl-content-section {
-    background: white;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 24px;
-}
-
-.nl-content-section h2 {
-    margin: 0 0 16px 0;
-    font-size: 18px;
-    font-weight: 500;
-    color: #1E293B;
-}
-
-.nl-empty-state {
-    color: #64748B;
-    font-size: 14px;
-    text-align: center;
-    padding: 24px;
+    background-color: #f8f9fa;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* Sidebar */
 .nl-sidebar {
-    width: 260px;
-    background-color: white;
-    padding: 24px 0;
-    position: fixed;
-    height: 100vh;
-    border-right: 1px solid #E2E8F0;
+    width: 250px;
+    background: #ffffff;
+    padding: 30px 0;
+    border-right: 1px solid #e9ecef;
 }
 
 .nl-menu-title {
-    color: #64748B;
-    font-size: 12px;
+    padding: 0 25px;
+    margin-bottom: 20px;
+    color: #6c757d;
+    font-size: 13px;
     font-weight: 600;
-    padding: 0 24px;
-    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.nl-menu {
+.nl-nav-menu {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.nl-menu-item {
+.nl-nav-item {
+    margin: 4px 0;
+}
+
+.nl-nav-item a {
     display: flex;
     align-items: center;
-    padding: 12px 24px;
-    color: #64748B;
+    padding: 12px 25px;
+    color: #495057;
     text-decoration: none;
-    gap: 12px;
-    transition: all 0.2s;
+    font-size: 14px;
+    transition: all 0.2s ease;
 }
 
-.nl-menu-item:hover {
-    background-color: #F1F5F9;
-    color: #2563EB;
+.nl-nav-item a:hover,
+.nl-nav-item a.active {
+    background-color: #f0f4ff;
+    color: #0d6efd;
 }
 
-.nl-menu-item.active {
-    background-color: #EFF6FF;
-    color: #2563EB;
-}
-
-.nl-menu-item i {
-    width: 20px;
+.nl-nav-item i {
+    margin-right: 12px;
     font-size: 18px;
+    width: 20px;
+    text-align: center;
 }
 
-@media (max-width: 1200px) {
-    .nl-content-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .nl-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+/* Main Content */
+.nl-main-content {
+    flex: 1;
+    padding: 30px;
 }
 
+/* Header */
+.nl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.nl-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.nl-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nl-user-email {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Stats Cards */
+.nl-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.nl-stat-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nl-stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.nl-stat-icon.courses {
+    background-color: #e8f3ff;
+    color: #0d6efd;
+}
+
+.nl-stat-icon.completed {
+    background-color: #e8fff3;
+    color: #00b74a;
+}
+
+.nl-stat-icon.progress {
+    background-color: #fff3e6;
+    color: #fd7e14;
+}
+
+.nl-stat-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #212529;
+    margin: 5px 0;
+}
+
+.nl-stat-label {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Content Sections */
+.nl-section {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nl-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #212529;
+    margin: 0 0 20px 0;
+}
+
+/* Empty States */
+.nl-empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #6c757d;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .nl-sidebar {
-        display: none;
+    .nl-dashboard-container {
+        flex-direction: column;
     }
 
-    .nl-main-content {
-        margin-left: 0;
-        max-width: 100%;
+    .nl-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
     }
 
     .nl-stats-grid {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ---------------------------------------- */
+
+/* Courses Filter */
+.nl-courses-filter {
+    margin-bottom: 25px;
+}
+
+.nl-filter-select {
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #1a202c;
+    font-size: 14px;
+    min-width: 200px;
+}
+
+/* Courses Grid */
+.nl-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.nl-course-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nl-course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nl-course-image {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background: #f8f9fa;
+}
+
+.nl-course-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nl-course-content {
+    padding: 20px;
+}
+
+.nl-course-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.nl-course-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.nl-progress-bar {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.nl-progress-fill {
+    height: 100%;
+    background: #0d6efd;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.nl-course-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.nl-course-menu {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    transition: background-color 0.2s ease;
+}
+
+.nl-course-menu:hover {
+    background-color: #f1f5f9;
+    color: #1a202c;
+}
+
+/* Course Menu Popup */
+.nl-course-menu-popup {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-width: 200px;
+    z-index: 1000;
+}
+
+.nl-menu-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nl-menu-option {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #1a202c;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.nl-menu-option:hover {
+    background-color: #f8f9fa;
+}
+
+.nl-menu-option i {
+    margin-right: 10px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Status-based styles */
+.nl-course-card[data-status="completed"] .nl-progress-fill {
+    background-color: #10b981;
+}
+
+.nl-course-card[data-status="in-progress"] .nl-progress-fill {
+    background-color: #0d6efd;
+}
+
+.nl-course-card[data-status="not-started"] .nl-progress-fill {
+    background-color: #64748b;
+}
+
+/* Empty State */
+.nl-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.nl-empty-icon {
+    font-size: 48px;
+    color: #94a3b8;
+    margin-bottom: 15px;
+}
+
+.nl-empty-state h3 {
+    font-size: 18px;
+    color: #1a202c;
+    margin-bottom: 10px;
+}
+
+.nl-empty-state p {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nl-courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-course-card {
+        max-width: none;
+    }
+}
+
+/* ------------------------------ */
+
+
+/* Certificates Grid */
+.nl-certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.nl-certificate-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.nl-certificate-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nl-certificate-icon {
+    width: 50px;
+    height: 50px;
+    background: #fff3e6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.nl-certificate-icon i {
+    font-size: 24px;
+    color: #fd7e14;
+}
+
+.nl-certificate-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.nl-certificate-meta {
+    margin-bottom: 20px;
+}
+
+.nl-cert-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.nl-cert-label {
+    color: #64748b;
+}
+
+.nl-cert-value {
+    color: #1a202c;
+    font-weight: 500;
+}
+
+.nl-certificate-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.nl-certificate-actions .nl-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Modal Styles */
+.nl-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.nl-modal-content {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nl-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nl-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1a202c;
+}
+
+.nl-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.nl-modal-body {
+    padding: 20px;
+}
+
+.nl-share-options {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nl-share-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #f8fafc;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #1a202c;
+    transition: background-color 0.2s ease;
+}
+
+.nl-share-option:hover {
+    background: #f1f5f9;
+}
+
+.nl-copy-link {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.nl-copy-link input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.nl-copy-btn {
+    padding: 8px;
+    min-width: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nl-certificates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-certificate-actions {
+        flex-direction: column;
+    }
+}
+
+
+/* ------------------------------------- */
+
+
+/* Certificates Section Styles */
+.nl-certificates-container {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.nl-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.nl-certificate-card {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s;
+}
+
+.nl-certificate-card:hover {
+    background-color: #f9fafb;
+}
+
+.nl-certificate-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nl-certificate-icon {
+    background-color: #ecfdf5;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    color: #059669;
+}
+
+.nl-certificate-details {
+    flex: 1;
+}
+
+.nl-certificate-meta {
+    display: flex;
+    gap: 1rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.nl-verification-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.nl-verification-status.verified {
+    background-color: #ecfdf5;
+    color: #059669;
+}
+
+.nl-certificate-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.nl-empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+}
+
+.nl-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: #f3f4f6;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+}
+
+.nl-empty-icon .dashicons {
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    color: #9ca3af;
+}
+
+
+/* -------------------------- */
+
+

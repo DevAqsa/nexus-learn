@@ -1,56 +1,51 @@
 <?php
-
 namespace NexusLearn\Frontend\Components;
 
 class CertificatesManager {
     public function __construct() {
-        add_action('wp_ajax_nl_download_certificate', [$this, 'download_certificate']);
+        add_action('wp_ajax_nl_download_certificate', [$this, 'handle_certificate_download']);
+        add_action('wp_ajax_nl_download_all_certificates', [$this, 'handle_bulk_download']);
     }
 
-    public function render_certificates_section($user_id) {
-        $certificates = $this->get_user_certificates($user_id);
-        ob_start();
-        ?>
-        <div class="nl-certificates-section">
-            <h2><?php _e('Certificates & Achievements', 'nexuslearn'); ?></h2>
-            <?php if (!empty($certificates)): ?>
-                <div class="nl-certificates-grid">
-                    <?php foreach ($certificates as $cert): ?>
-                        <div class="nl-certificate-card">
-                            <div class="nl-certificate-icon">🏆</div>
-                            <h3><?php echo esc_html($cert['title']); ?></h3>
-                            <p><?php echo esc_html($cert['completion_date']); ?></p>
-                            <button class="nl-download-cert" 
-                                    data-cert-id="<?php echo esc_attr($cert['id']); ?>">
-                                <?php _e('Download', 'nexuslearn'); ?>
-                            </button>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <p class="nl-empty-state"><?php _e('No certificates earned yet.', 'nexuslearn'); ?></p>
-            <?php endif; ?>
-        </div>
-        <?php
-        return ob_get_clean();
-    }
-
-    private function get_user_certificates($user_id) {
+    public function get_user_certificates($user_id) {
         global $wpdb;
         $table = $wpdb->prefix . 'nexuslearn_certificates';
-        return $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT * FROM {$table} WHERE user_id = %d",
-                $user_id
-            ),
-            ARRAY_A
-        );
+        
+        // For testing purposes, return empty array if table doesn't exist
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
+            return [];
+        }
+        
+        return $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$table} WHERE user_id = %d ORDER BY completion_date DESC",
+            $user_id
+        ), ARRAY_A);
     }
 
-    public function download_certificate() {
-        // Certificate generation and download logic
-        wp_send_json_success(['message' => 'Certificate downloaded']);
+    public function handle_certificate_download() {
+        check_ajax_referer('nl_dashboard_nonce', 'nonce');
+        
+        if (!isset($_POST['certificate_id'])) {
+            wp_send_json_error(['message' => __('Invalid certificate ID', 'nexuslearn')]);
+        }
+        
+        $certificate_id = intval($_POST['certificate_id']);
+        
+        // TODO: Implement actual certificate generation
+        wp_send_json_success(['download_url' => '#']);
+    }
+
+    public function handle_bulk_download() {
+        check_ajax_referer('nl_dashboard_nonce', 'nonce');
+        
+        $user_id = get_current_user_id();
+        $certificates = $this->get_user_certificates($user_id);
+        
+        if (empty($certificates)) {
+            wp_send_json_error(['message' => __('No certificates found', 'nexuslearn')]);
+        }
+        
+        // TODO: Implement actual bulk certificate generation
+        wp_send_json_success(['download_url' => '#']);
     }
 }
-
-
