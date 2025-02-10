@@ -179,3 +179,39 @@ jQuery('#nl-download-all').on('click', function() {
 
 
 
+// Assignment Functions
+function submitAssignment(assignmentId) {
+    jQuery.ajax({
+        url: nlDashboard.ajaxUrl,
+        type: 'POST',
+        data: {
+            action: 'nl_submit_assignment',
+            nonce: nlDashboard.nonce,
+            assignment_id: assignmentId
+        },
+        success: function(response) {
+            if (response.success) {
+                // Refresh the page or update the UI
+                location.reload();
+            } else {
+                alert(response.data.message || 'Error submitting assignment');
+            }
+        }
+    });
+}
+
+function viewFeedback(assignmentId) {
+    // Implement feedback viewing functionality
+    console.log('Viewing feedback for assignment:', assignmentId);
+}
+
+// Assignment filtering
+jQuery('#nl-assignment-filter').on('change', function() {
+    const status = jQuery(this).val();
+    if (status === 'all') {
+        jQuery('.nl-assignment-card').show();
+    } else {
+        jQuery('.nl-assignment-card').hide();
+        jQuery(`.nl-assignment-card[data-status="${status}"]`).show();
+    }
+});

@@ -32,6 +32,14 @@ $user_info = get_userdata($user_id);
                     <?php _e('Certificates', 'nexuslearn'); ?>
                 </a>
             </li>
+
+
+            <li class="nl-nav-item">
+    <a href="?view=assignments" class="<?php echo $current_view === 'assignments' ? 'active' : ''; ?>">
+        <i class="dashicons dashicons-clipboard"></i>
+        <?php _e('Assignments', 'nexuslearn'); ?>
+    </a>
+</li>
         </ul>
     </div>
 
@@ -69,20 +77,24 @@ $user_info = get_userdata($user_id);
 
         <!-- Dynamic Content -->
         <?php
-        switch ($current_view) {
-            case 'overview':
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/overview.php';
-                break;
-            case 'courses':
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/courses.php';
-                break;
-            case 'progress':
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/progress.php';
-                break;
-            case 'certificates':
-                include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/certificates.php';
-                break;
-        }
+       
+       switch ($current_view) {
+           case 'overview':
+               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/overview.php';
+               break;
+           case 'courses':
+               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/courses.php';
+               break;
+           case 'progress':
+               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/progress.php';
+               break;
+           case 'certificates':
+               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/certificates.php';
+               break;
+           case 'assignments':
+               include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/assignments.php';
+               break;
+       }
         ?>
     </div>
 </div>
