@@ -39,6 +39,12 @@ $user_info = get_userdata($user_id);
                 </a>
             </li>
             <li class="nl-nav-item">
+                <a href="?view=quiz" class="<?php echo $current_view === 'quiz' ? 'active' : ''; ?>">
+                    <i class="dashicons dashicons-welcome-write-blog"></i>
+                    <?php _e('Quiz', 'nexuslearn'); ?>
+                </a>
+            </li>
+            <li class="nl-nav-item">
     <a href="?view=gradebook" class="<?php echo $current_view === 'gradebook' ? 'active' : ''; ?>">
         <i class="dashicons dashicons-book"></i>
         <?php _e('Grade Book', 'nexuslearn'); ?>
@@ -48,6 +54,13 @@ $user_info = get_userdata($user_id);
                 <a href="?view=attendance" class="<?php echo $current_view === 'attendance' ? 'active' : ''; ?>">
                     <i class="dashicons dashicons-calendar-alt"></i>
                     <?php _e('Attendance', 'nexuslearn'); ?>
+                </a>
+            </li>
+
+            <li class="nl-nav-item">
+                <a href="?view=membership" class="<?php echo $current_view === 'membership' ? 'active' : ''; ?>">
+                    <i class="dashicons dashicons-money-alt"></i>
+                    <?php _e('Membership', 'nexuslearn'); ?>
                 </a>
             </li>
             <li class="nl-nav-item">
@@ -63,6 +76,13 @@ $user_info = get_userdata($user_id);
                 </a>
             </li>
         </ul>
+
+        <li class="nl-nav-item">
+    <a href="?view=contact" class="<?php echo $current_view === 'contact' ? 'active' : ''; ?>">
+        <i class="dashicons dashicons-phone"></i>
+        <?php _e('Contact Us', 'nexuslearn'); ?>
+    </a>
+</li>
     </div>
 
     <!-- Main Content -->
@@ -84,18 +104,25 @@ $user_info = get_userdata($user_id);
                     case 'assignments':
                         _e('Assignments', 'nexuslearn');
                         break;
+                        case 'quiz':
+                            _e('Quiz', 'nexuslearn');
+                            break;
                         case 'gradebook':
                             _e('GradeBook', 'nexuslearn');
                             break;
                     case 'attendance':
                         _e('Attendance', 'nexuslearn');
                         break;
+                        case 'membership':
+                            _e('Membership', 'nexuslearn');
+                            break;
                     case 'notes':
                         _e('My Notes', 'nexuslearn');
                         break;
                     case 'settings':
                         _e('Settings', 'nexuslearn');
                         break;
+                        
                     default:
                         _e('My Dashboard', 'nexuslearn');
                         break;
@@ -140,18 +167,27 @@ $user_info = get_userdata($user_id);
             case 'assignments':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/assignments.php';
                 break;
+                case 'quiz':
+                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/quiz.php';
+                    break;
                 case 'gradebook':
-                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/gradebooktemp.php';
+                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/gradebook-template.php';
                     break;
             case 'attendance':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/attendance.php';
                 break;
+                case 'membership':
+                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/membership.php';
+                    break;
             case 'notes':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/notes.php';
                 break;
             case 'settings':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/settings.php';
                 break;
+                case 'contact':
+                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/contact.php';
+                    break;
         }
         ?>
     </div>

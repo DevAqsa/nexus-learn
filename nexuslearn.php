@@ -184,7 +184,63 @@ register_activation_hook(__FILE__, function() {
     dbDelta($sql);
 });
 
+function nl_handle_contact_form() {
+    check_ajax_referer('nl_dashboard_nonce', 'nonce');
+    
+    if (!is_user_logged_in()) {
+        wp_send_json_error(['message' => __('You must be logged in to submit a message.', 'nexuslearn')]);
+    }
 
+    $subject = sanitize_text_field($_POST['subject']);
+    $message = sanitize_textarea_field($_POST['message']);
+    $user = wp_get_current_user();
+
+    // Prepare email content
+    $to = get_option('admin_email');
+    $email_subject = sprintf('[NexusLearn Contact] %s - from %s', $subject, $user->display_name);
+    $email_message = sprintf(
+        "A new contact form submission has been received:\n\n" .
+        "From: %s (%s)\n" .
+        "Subject: %s\n\n" .
+        "Message:\n%s",
+        $user->display_name,
+        $user->user_email,
+        $subject,
+        $message
+    );
+
+    // Send email
+    $sent = wp_mail($to, $email_subject, $email_message);
+
+    // Log the contact attempt
+    global $wpdb;
+    $table = $wpdb->prefix . 'nl_contact_log';
+    
+    $wpdb->insert(
+        $table,
+        [
+            'user_id' => get_current_user_id(),
+            'subject' => $subject,
+            'message' => $message,
+            'status' => $sent ? 'sent' : 'failed',
+            'created_at' => current_time('mysql')
+        ],
+        ['%d', '%s', '%s', '%s', '%s']
+    );
+
+    if ($sent) {
+        wp_send_json_success(['message' => __('Your message has been sent successfully.', 'nexuslearn')]);
+    } else {
+        wp_send_json_error(['message' => __('Failed to send message. Please try again.', 'nexuslearn')]);
+    }
+}
+add_action('wp_ajax_nl_submit_contact_form', 'nl_handle_contact_form');
+
+
+add_shortcode('nexuslearn_gradebook', function() {
+    $gradebook = new NexusLearn\Frontend\Components\GradeBook();
+    return $gradebook->render_gradebook();
+});
 // // Activation Hook
 // register_activation_hook(__FILE__, function() {
 //     require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Activator.php';
