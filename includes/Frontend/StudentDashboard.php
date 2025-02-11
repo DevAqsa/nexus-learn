@@ -8,6 +8,7 @@ class StudentDashboard {
     private $assignments_manager;
     private $notes_manager;
     private $general_settings;
+    private $grade_book;
 
     public function __construct() {
         $this->certificates_manager = new Components\CertificatesManager();
@@ -16,6 +17,8 @@ class StudentDashboard {
         $this->assignments_manager = new Components\AssignmentsManager();
         $this->notes_manager = new Components\NotesManager();
         $this->general_settings = new Components\GeneralSettings();
+        $this->grade_book = new Components\GradeBook();
+        
 
         add_shortcode('nexuslearn_student_dashboard', [$this, 'render_dashboard']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
