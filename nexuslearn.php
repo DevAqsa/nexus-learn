@@ -241,6 +241,30 @@ add_shortcode('nexuslearn_gradebook', function() {
     $gradebook = new NexusLearn\Frontend\Components\GradeBook();
     return $gradebook->render_gradebook();
 });
+
+
+
+function create_lecture_schedule_table() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'nl_lecture_schedule';
+    
+    $charset_collate = $wpdb->get_charset_collate();
+    
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        course_id bigint(20) NOT NULL,
+        day_of_week varchar(20) NOT NULL,
+        start_time time NOT NULL,
+        end_time time NOT NULL,
+        instructor_id bigint(20) NOT NULL,
+        location varchar(255) NOT NULL,
+        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY  (id)
+    ) $charset_collate;";
+    
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
 // // Activation Hook
 // register_activation_hook(__FILE__, function() {
 //     require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Activator.php';

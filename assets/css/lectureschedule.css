@@ -1,0 +1,54 @@
+.nl-schedule-section {
+    margin-top: 2rem;
+}
+
+.nl-schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.nl-schedule-day {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 1rem;
+}
+
+.nl-day-header {
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+}
+
+.nl-lecture-card {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+.nl-lecture-card:last-child {
+    margin-bottom: 0;
+}
+
+.nl-lecture-time {
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+}
+
+.nl-lecture-details h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.nl-lecture-instructor,
+.nl-lecture-location {
+    font-size: 0.875rem;
+    color: #718096;
+    margin: 0.25rem 0;
+}

@@ -19,6 +19,7 @@ class StudentDashboard {
         $this->general_settings = new Components\GeneralSettings();
         $this->grade_book = new Components\GradeBook();
         $this->todo_calendar = new Components\TodoCalendar();
+        $this->lecture_schedule = new Components\LectureScheduleManager();
         
 
         add_shortcode('nexuslearn_student_dashboard', [$this, 'render_dashboard']);

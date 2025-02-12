@@ -62,6 +62,12 @@ $user_info = get_userdata($user_id);
                     <?php _e('Attendance', 'nexuslearn'); ?>
                 </a>
             </li>
+            <li class="nl-nav-item">
+    <a href="?view=schedule" class="<?php echo $current_view === 'schedule' ? 'active' : ''; ?>">
+        <i class="dashicons dashicons-clock"></i>
+        <?php _e('Lecture Schedule', 'nexuslearn'); ?>
+    </a>
+</li>
 
             <li class="nl-nav-item">
                 <a href="?view=membership" class="<?php echo $current_view === 'membership' ? 'active' : ''; ?>">
@@ -122,6 +128,9 @@ $user_info = get_userdata($user_id);
                     case 'attendance':
                         _e('Attendance', 'nexuslearn');
                         break;
+                        case 'schedule':
+                            _e('Lecture Schedule', 'nexuslearn');
+                            break;
                         case 'membership':
                             _e('Membership', 'nexuslearn');
                             break;
@@ -188,6 +197,9 @@ $user_info = get_userdata($user_id);
             case 'attendance':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/attendance.php';
                 break;
+                case 'schedule':
+                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/schedule.php';
+                    break;
                 case 'membership':
                     include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/membership.php';
                     break;
