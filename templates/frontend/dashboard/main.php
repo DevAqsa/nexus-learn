@@ -15,6 +15,12 @@ $user_info = get_userdata($user_id);
                 </a>
             </li>
             <li class="nl-nav-item">
+    <a href="?view=calendar" class="<?php echo $current_view === 'calendar' ? 'active' : ''; ?>">
+        <i class="dashicons dashicons-calendar-alt"></i>
+        <?php _e('To Do Calendar', 'nexuslearn'); ?>
+    </a>
+</li>
+            <li class="nl-nav-item">
                 <a href="?view=courses" class="<?php echo $current_view === 'courses' ? 'active' : ''; ?>">
                     <i class="dashicons dashicons-welcome-learn-more"></i>
                     <?php _e('My Courses', 'nexuslearn'); ?>
@@ -95,6 +101,9 @@ $user_info = get_userdata($user_id);
                     case 'courses':
                         _e('My Courses', 'nexuslearn');
                         break;
+                        case 'calendar':
+                            _e('Calender', 'nexuslearn');
+                        break;
                     case 'progress':
                         _e('Learning Progress', 'nexuslearn');
                         break;
@@ -155,6 +164,9 @@ $user_info = get_userdata($user_id);
             case 'overview':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/overview.php';
                 break;
+                case 'calendar':
+                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/calender.php';
+                    break;
             case 'courses':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/courses.php';
                 break;

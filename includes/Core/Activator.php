@@ -61,3 +61,29 @@ $sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}nl_contact_log (
 
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 dbDelta($sql);
+
+class Activator {
+    public static function activate() {
+        global $wpdb;
+        
+        $sql = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}nexuslearn_todo_items` (
+            `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            `user_id` bigint(20) unsigned NOT NULL,
+            `course_id` bigint(20) unsigned NOT NULL,
+            `title` varchar(255) NOT NULL,
+            `description` text,
+            `type` varchar(20) NOT NULL,
+            `due_date` datetime NOT NULL,
+            `status` varchar(20) DEFAULT 'pending',
+            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`),
+            KEY `user_id` (`user_id`),
+            KEY `course_id` (`course_id`),
+            KEY `due_date` (`due_date`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        dbDelta($sql);
+    }
+}
