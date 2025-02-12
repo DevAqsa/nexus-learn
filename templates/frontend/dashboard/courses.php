@@ -73,9 +73,21 @@ $courses = get_posts([
                             }
                             ?>
                         </a>
-                        <button class="nl-course-menu" aria-label="<?php _e('Course Options', 'nexuslearn'); ?>">
+                        <a href="?view=course-content&course_id=<?php echo get_the_ID(); ?>" 
+           class="nl-button nl-button-primary">
+            <?php _e('View Content', 'nexuslearn'); 
+            $view_content_url = add_query_arg([
+                'view' => 'course-content',
+                'course_id' => $course->ID
+            ], get_permalink());
+            
+            '</a>';?>
+            
+        </a>
+        
+                        <!-- <button class="nl-course-menu" aria-label="<?php _e('Course Options', 'nexuslearn'); ?>">
                             <i class="dashicons dashicons-ellipsis"></i>
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>

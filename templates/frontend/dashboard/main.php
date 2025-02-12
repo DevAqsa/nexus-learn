@@ -179,6 +179,9 @@ $user_info = get_userdata($user_id);
             case 'courses':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/courses.php';
                 break;
+                case 'course-content':
+                    include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/course-content.php';
+                    break;
             case 'progress':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/progress.php';
                 break;

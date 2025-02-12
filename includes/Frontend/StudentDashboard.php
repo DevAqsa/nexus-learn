@@ -9,6 +9,7 @@ class StudentDashboard {
     private $notes_manager;
     private $general_settings;
     private $grade_book;
+    private $content_viewer;
 
     public function __construct() {
         $this->certificates_manager = new Components\CertificatesManager();
@@ -19,8 +20,7 @@ class StudentDashboard {
         $this->general_settings = new Components\GeneralSettings();
         $this->grade_book = new Components\GradeBook();
         $this->todo_calendar = new Components\TodoCalendar();
-        $this->lecture_schedule = new Components\LectureScheduleManager();
-        
+        $this->content_viewer = new Components\ContentViewer();
 
         add_shortcode('nexuslearn_student_dashboard', [$this, 'render_dashboard']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
@@ -72,7 +72,7 @@ class StudentDashboard {
 
         ob_start();
         
-        // Make class properties available to templates
+      
         $certificates_manager = $this->certificates_manager;
         $progress_tracker = $this->progress_tracker;
         $profile_manager = $this->profile_manager;
@@ -80,7 +80,7 @@ class StudentDashboard {
         $notes_manager = $this->notes_manager;
         $general_settings = $this->general_settings;
         
-        // Load the main dashboard template
+       
         include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/main.php';
         
         return ob_get_clean();

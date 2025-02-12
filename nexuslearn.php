@@ -265,6 +265,25 @@ function create_lecture_schedule_table() {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
 }
+
+
+function nexuslearn_enqueue_content_viewer_assets() {
+    wp_enqueue_style(
+        'nl-content-viewer',
+        NEXUSLEARN_PLUGIN_URL . 'assets/css/content-viewer.css',
+        [],
+        NEXUSLEARN_VERSION
+    );
+
+    wp_enqueue_script(
+        'nl-content-viewer',
+        NEXUSLEARN_PLUGIN_URL . 'assets/js/content-viewer.js',
+        ['jquery'],
+        NEXUSLEARN_VERSION,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'nexuslearn_enqueue_content_viewer_assets');
 // // Activation Hook
 // register_activation_hook(__FILE__, function() {
 //     require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Activator.php';

@@ -1,0 +1,84 @@
+/* Content Viewer Styles */
+.nl-content-viewer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 200px);
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Navigation Bar */
+.nl-content-nav {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 12px;
+}
+
+.nl-nav-btn {
+    padding: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #4b5563;
+    transition: all 0.2s ease;
+}
+
+.nl-nav-btn:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+}
+
+.nl-progress-indicator {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nl-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.nl-progress-fill {
+    height: 100%;
+    background: #6366f1;
+    transition: width 0.3s ease;
+}
+
+.nl-progress-text {
+    font-size: 0.875rem;
+    color: #4b5563;
+    min-width: 100px;
+}
+
+/* Content Area */
+.nl-content-area {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Chapter Navigation */
+.nl-chapter-nav {
+    width: 280px;
+    border-right: 1px solid #e5e7eb;
+    overflow-y: auto;
+    padding: 16px;
+    background: #f8fafc;
+}
+
+.nl-chapter-nav h3 {
+    margin: 0 0 12px 0;
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+

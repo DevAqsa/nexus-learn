@@ -1005,3 +1005,105 @@ body.dark-mode .nl-form-group select {
 /* ------------------------------------ */
 
 
+/* Course Card Styles */
+.nl-course-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nl-course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nl-course-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.nl-course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nl-course-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.nl-course-progress {
+    margin: 15px 0;
+}
+
+.nl-progress-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 5px;
+}
+
+/* Button Container */
+.nl-course-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Button Styles */
+.nl-button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.nl-button-primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+}
+
+.nl-button-primary:hover {
+    background: #1d4ed8;
+}
+
+.nl-button-secondary {
+    background: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+}
+
+.nl-button-secondary:hover {
+    background: #e5e7eb;
+}
+
+/* Course Grid Layout */
+.nl-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .nl-courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nl-course-actions {
+        flex-direction: column;
+    }
+}
