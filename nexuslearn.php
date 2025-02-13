@@ -35,6 +35,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/SecurityHandler.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/functions.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/StudentSettings.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/NotesManager.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/VideoPlayer.php';
 
 
 
