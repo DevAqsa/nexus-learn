@@ -25,7 +25,7 @@ $dummy_lessons = [
         'post_title' => 'List Implementation',
         'comment_count' => 33,
         'duration' => '00:00:01',
-        'video_url' => 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+        'video_url' => 'https://www.youtube.com/embed/VTLCoHnyACE',
         'has_slides' => true,
         'has_resources' => false
     ],
