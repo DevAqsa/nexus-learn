@@ -297,3 +297,9 @@ function enroll_user_in_course($user_id, $course_id) {
     
     return true;
 }
+
+
+// ----------------------------
+
+
+

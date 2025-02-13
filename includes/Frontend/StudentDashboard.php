@@ -9,7 +9,7 @@ class StudentDashboard {
     private $notes_manager;
     private $general_settings;
     private $grade_book;
-    private $content_viewer;
+    private $content_viewer; 
 
     public function __construct() {
         $this->certificates_manager = new Components\CertificatesManager();
@@ -69,19 +69,25 @@ class StudentDashboard {
         if (!is_user_logged_in()) {
             return $this->render_login_required();
         }
-
+    
         ob_start();
         
-      
+        // Make class properties available to templates
         $certificates_manager = $this->certificates_manager;
         $progress_tracker = $this->progress_tracker;
         $profile_manager = $this->profile_manager;
-        $assignments_manager = $this->assignments_manager;
-        $notes_manager = $this->notes_manager;
-        $general_settings = $this->general_settings;
+        $content_viewer = $this->content_viewer;
         
-       
-        include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/main.php';
+        // Check if we're viewing course content
+        $current_view = isset($_GET['view']) ? sanitize_key($_GET['view']) : 'overview';
+        $course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
+    
+        // Load the appropriate template based on view
+        if ($current_view === 'course-content' && $course_id > 0) {
+            include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/course-content.php';
+        } else {
+            include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/main.php';
+        }
         
         return ob_get_clean();
     }
