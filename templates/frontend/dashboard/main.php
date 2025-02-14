@@ -182,6 +182,9 @@ $user_info = get_userdata($user_id);
                 case 'course-content-view':
                     include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/course-content-view.php';
                     break;
+                    case 'course-info-content':
+                        include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/course-info-content.php';
+                        break;
             case 'progress':
                 include NEXUSLEARN_PLUGIN_DIR . 'templates/frontend/dashboard/progress.php';
                 break;

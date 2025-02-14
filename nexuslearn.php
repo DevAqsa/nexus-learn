@@ -36,6 +36,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/functions.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/StudentSettings.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/NotesManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/VideoPlayer.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/ajax-handlers.php';
 
 
 
@@ -285,6 +286,26 @@ function nexuslearn_enqueue_content_viewer_assets() {
     );
 }
 add_action('wp_enqueue_scripts', 'nexuslearn_enqueue_content_viewer_assets');
+
+
+// Add this to your plugin's main file or where you enqueue scripts
+function nl_enqueue_course_content_scripts() {
+    if (has_shortcode(get_post()->post_content, 'nexuslearn_course_content')) {
+        wp_enqueue_script('nl-course-content', 
+            NEXUSLEARN_PLUGIN_URL . 'assets/js/course-content.js',
+            ['jquery'],
+            NEXUSLEARN_VERSION,
+            true
+        );
+        
+        wp_localize_script('nl-course-content', 'nlCourseContent', [
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('wp_rest'),
+            'courseId' => get_the_ID()
+        ]);
+    }
+}
+add_action('wp_enqueue_scripts', 'nl_enqueue_course_content_scripts');
 // // Activation Hook
 // register_activation_hook(__FILE__, function() {
 //     require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Core/Activator.php';

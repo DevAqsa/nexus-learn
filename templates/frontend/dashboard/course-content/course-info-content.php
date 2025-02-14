@@ -80,72 +80,129 @@ $course_info = [
 
 <style>
 .nl-course-info-content {
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #f8f9fa;
 }
 
 .nl-info-section {
     background: white;
-    border-radius: 8px;
-    padding: 1.5rem;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.nl-info-section.nl-full-width {
-    grid-column: 1 / -1;
+.nl-info-section:first-child {
+    border-top: 1px solid #e5e7eb;
 }
 
 .nl-info-section h2 {
-    font-size: 1.1rem;
-    color: #1a1a1a;
+    font-size: 1.25rem;
+    color: #111827;
     margin: 0 0 1rem 0;
     font-weight: 500;
 }
 
 .nl-info-item {
     color: #4b5563;
+    line-height: 1.6;
 }
 
 .nl-course-code {
-    color: #7c3aed;
-    font-weight: 500;
-    margin-right: 0.5rem;
+    color: #111827;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.nl-course-title {
+    color: #4b5563;
+    font-size: 1rem;
 }
 
 .nl-instructor-name {
     font-weight: 500;
+    color: #111827;
     margin: 0 0 0.5rem 0;
 }
 
 .nl-instructor-email {
-    color: #7c3aed;
+    color: #6366f1;
     margin: 0 0 0.5rem 0;
+    text-decoration: none;
+}
+
+.nl-instructor-email:hover {
+    text-decoration: underline;
 }
 
 .nl-instructor-phone {
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nl-ext {
     color: #6b7280;
-    margin-left: 0.25rem;
 }
 
 .nl-outcomes-list {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+    list-style-type: disc;
 }
 
 .nl-outcomes-list li {
     margin-bottom: 0.75rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    color: #4b5563;
+}
+
+/* Header styles */
+.course-header {
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    padding: 1rem 2rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-header h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.back-button {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .nl-course-info-content {
-        grid-template-columns: 1fr;
+    .nl-info-section {
+        padding: 1rem;
+    }
+    
+    .course-header {
+        padding: 1rem;
+    }
+    
+    .nl-instructor-phone {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    .nl-ext {
+        margin-left: 0;
     }
 }
 </style>
