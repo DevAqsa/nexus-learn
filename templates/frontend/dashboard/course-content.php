@@ -38,7 +38,7 @@ $dummy_instructor = (object)[
     'display_name' => 'Dr. Sohail Aslam',
     'designation' => 'Ph.D Computer Science',
     'institution' => 'University of Illinois at Urbana-Champaign',
-    'avatar_url' => 'https://via.placeholder.com/200'
+    // 'avatar_url' => 'https://via.placeholder.com/200'
 ];
 
 $course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
