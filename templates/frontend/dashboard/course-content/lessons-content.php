@@ -141,10 +141,10 @@ $lessons = [
                 
 
                 <div class="nl-lesson-meta">
-                    <span class="nl-comments">
-                        <span class="dashicons dashicons-admin-comments"></span>
-                        Comments <span class="nl-count"><?php echo $lesson['comments']; ?></span>
-                    </span>
+                <span class="nl-comments" onclick="showComments(<?php echo $lesson['id']; ?>, '<?php echo esc_attr($lesson['title']); ?>')">
+    <span class="dashicons dashicons-admin-comments"></span>
+    Comments <span class="nl-count"><?php echo $lesson['comments']; ?></span>
+</span>
                     <span class="nl-duration">
                         <span class="dashicons dashicons-clock"></span>
                         <?php echo esc_html($lesson['duration']); ?>
@@ -153,6 +153,27 @@ $lessons = [
             </div>
         </div>
     <?php endforeach; ?>
+
+    <!-- Comments Modal -->
+<div id="nl-comments-modal" class="nl-modal">
+    <div class="nl-modal-content">
+        <div class="nl-modal-header">
+            <h3 id="nl-comments-title">Comments</h3>
+            <span class="nl-modal-close" onclick="closeComments()">&times;</span>
+        </div>
+        <div class="nl-comments-container">
+            <div class="nl-comments-list" id="comments-list">
+                <!-- Comments will be loaded here -->
+            </div>
+            
+            <!-- Comment Form -->
+            <div class="nl-comment-form">
+                <textarea id="new-comment" placeholder="Write your comment..."></textarea>
+                <button onclick="submitComment()" class="nl-button nl-button-primary">Post Comment</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 <!-- Slides Modal -->
@@ -295,7 +316,6 @@ $lessons = [
     left: 0;
     width: 100%;
     height: 100%;
-    background: #e5e7eb;
     z-index: 1000;
 }
 
@@ -560,6 +580,66 @@ $lessons = [
     .nl-reading-content {
         font-size: 1rem;
     }
+}
+
+/* Comments Modal Styles */
+.nl-comments-container {
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+}
+
+.nl-comments-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.nl-comment-item {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.nl-comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.nl-comment-author {
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.nl-comment-date {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.nl-comment-content {
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+.nl-comment-form {
+    padding: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.nl-comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.nl-comment-form button {
+    float: right;
 }
 
 
@@ -842,6 +922,105 @@ document.addEventListener('keydown', function(event) {
         closeVideo();
         closeSlides();
         closeReading();
+    }
+});
+
+
+// Add to your existing JavaScript
+let currentLessonId = null;
+
+function showComments(lessonId, lessonTitle) {
+    currentLessonId = lessonId;
+    const modal = document.getElementById('nl-comments-modal');
+    const titleElement = document.getElementById('nl-comments-title');
+    const commentsList = document.getElementById('comments-list');
+    
+    titleElement.textContent = `Comments - ${lessonTitle}`;
+    
+    // Load comments for this lesson
+    loadComments(lessonId);
+    
+    modal.style.display = 'block';
+}
+
+function loadComments(lessonId) {
+    const commentsList = document.getElementById('comments-list');
+    
+    // Show loading state
+    commentsList.innerHTML = '<div class="nl-loading">Loading comments...</div>';
+    
+    // Make AJAX call to get comments
+    fetch(`/wp-json/nexuslearn/v1/lessons/${lessonId}/comments`)
+        .then(response => response.json())
+        .then(comments => {
+            commentsList.innerHTML = '';
+            comments.forEach(comment => {
+                commentsList.innerHTML += `
+                    <div class="nl-comment-item">
+                        <div class="nl-comment-header">
+                            <span class="nl-comment-author">${comment.author}</span>
+                            <span class="nl-comment-date">${comment.date}</span>
+                        </div>
+                        <div class="nl-comment-content">${comment.content}</div>
+                    </div>
+                `;
+            });
+        })
+        .catch(error => {
+            commentsList.innerHTML = '<div class="nl-error">Error loading comments</div>';
+        });
+}
+
+function submitComment() {
+    const commentText = document.getElementById('new-comment').value.trim();
+    if (!commentText) return;
+    
+    // Make AJAX call to submit comment
+    fetch(`/wp-json/nexuslearn/v1/lessons/${currentLessonId}/comments`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': wpApiSettings.nonce
+        },
+        body: JSON.stringify({
+            content: commentText
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        // Clear comment form
+        document.getElementById('new-comment').value = '';
+        // Reload comments
+        loadComments(currentLessonId);
+    })
+    .catch(error => {
+        alert('Error posting comment');
+    });
+}
+
+function closeComments() {
+    const modal = document.getElementById('nl-comments-modal');
+    modal.style.display = 'none';
+    currentLessonId = null;
+}
+
+// Update your window.onclick handler
+window.onclick = function(event) {
+    if (event.target.classList.contains('nl-modal')) {
+        closeVideo();
+        closeSlides();
+        closeReading();
+        closeComments();
+    }
+}
+
+// Update your escape key handler
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeVideo();
+        closeSlides();
+        closeReading();
+        closeComments();
     }
 });
 </script>

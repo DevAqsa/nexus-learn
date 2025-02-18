@@ -37,6 +37,7 @@ require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/StudentSettin
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/NotesManager.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/Frontend/Components/VideoPlayer.php';
 require_once NEXUSLEARN_PLUGIN_DIR . 'includes/ajax-handlers.php';
+require_once NEXUSLEARN_PLUGIN_DIR . 'includes/API/CommentsController.php';
 
 
 
@@ -140,7 +141,7 @@ function nexuslearn_init() {
     new NexusLearn\Admin\CourseTemplateHandler();
     new NexusLearn\Frontend\StudentDashboard();
     new NexusLearn\Frontend\Components\NotesManager();
-    
+    new NexusLearn\API\CommentsController();
     
     
     
