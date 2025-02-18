@@ -125,13 +125,20 @@ $lessons = [
                     <?php endif; ?>
 
                     <?php if (!empty($lesson['video_url'])): ?>
-                        <button class="nl-button nl-video-btn" 
-                                onclick="showVideo('<?php echo esc_attr($lesson['video_url']); ?>')" 
-                                title="Watch Video">
-                            <span class="dashicons dashicons-video-alt3"></span>
-                        </button>
-                    <?php endif; ?>
+                    <button class="nl-button nl-video-btn" 
+                    onclick="showVideo('<?php echo esc_attr($lesson['video_url']); ?>')" 
+                    title="Watch Video">
+                    <span class="dashicons dashicons-video-alt3"></span>
+                    </button>
+                       <?php endif; ?>
+
+                       <button class="nl-button nl-reading-btn" 
+        onclick="showReading(<?php echo $lesson['id']; ?>, '<?php echo esc_attr($lesson['title']); ?>')" 
+        title="Read Content">
+    <span class="dashicons dashicons-book-alt"></span>
+</button>
                 </div>
+                
 
                 <div class="nl-lesson-meta">
                     <span class="nl-comments">
@@ -177,6 +184,21 @@ $lessons = [
         </div>
         <div class="nl-video-container">
             <iframe id="nl-video-frame" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- Reading Modal -->
+<div id="nl-reading-modal" class="nl-modal">
+    <div class="nl-modal-content">
+        <div class="nl-modal-header">
+            <h3 id="nl-reading-title"></h3>
+            <span class="nl-modal-close" onclick="closeReading()">&times;</span>
+        </div>
+        <div class="nl-reading-container">
+            <div id="reading-content" class="nl-reading-content">
+                <!-- Reading content will be loaded here -->
+            </div>
         </div>
     </div>
 </div>
@@ -273,7 +295,7 @@ $lessons = [
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: #e5e7eb;
     z-index: 1000;
 }
 
@@ -471,6 +493,76 @@ $lessons = [
 .nl-modal-close:hover {
     color: #333;
 }
+
+/* Add to your existing styles */
+.nl-button.nl-reading-btn {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    
+}
+
+.nl-button.nl-reading-btn:hover {
+    background-color: #7c3aed;
+    color: white;
+}
+
+.nl-reading-container {
+    height: calc(100% - 60px);
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.nl-reading-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #1a1a1a;
+}
+
+.nl-reading-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #111827;
+}
+
+.nl-reading-section h3 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    color: #1f2937;
+}
+
+.nl-reading-section p {
+    margin-bottom: 1.5rem;
+}
+
+.nl-code-example {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+}
+
+.nl-code-example pre {
+    margin: 0;
+    font-family: monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .nl-reading-container {
+        padding: 1rem;
+    }
+    
+    .nl-reading-content {
+        font-size: 1rem;
+    }
+}
+
+
 </style>
 
 <script>
@@ -690,4 +782,66 @@ window.onclick = function(event) {
         closeSlides();
     }
 }
+
+
+// Add this to your existing JavaScript
+const readingContent = {
+    1: {
+        title: "List Implementation",
+        content: `
+            <div class="nl-reading-section">
+                <h2>List Operations</h2>
+                <p>Today, we will discuss the concept of list operations. You may have a fair idea of <strong>start</strong> operation that sets the current pointer to the first element of the list while the <strong>tail</strong> operation moves the current pointer to the last element of the list. In the previous lecture, we discussed the operation <strong>next</strong> that moves the current pointer one element forward. Similarly, there is the <strong>back</strong> operation which moves the current pointer one element backward.</p>
+
+                <h3>List Implementation</h3>
+                <p>Now we will see what the implementation of the list is and how one can create a list in C++. After designing the interface for the list, it is advisable to know how to implement that interface. Suppose we want to create a list of integers. For this purpose, the methods of the list can be implemented with the use of an array inside.</p>
+
+                <div class="nl-code-example">
+                    <pre>
+A    2    6    8    7    1              current    size
+     1    2    3    4    5                 3        5
+                    </pre>
+                </div>
+
+                <p>In this case, we start the index of the array from 1 just for simplification against the usual practice in which the index of an array starts from zero in C++. It is not necessary to always start the indexing from zero. Sometimes, it is required to start the indexing from 1.</p>
+            </div>
+        `
+    },
+    // Add more reading content for other lectures
+};
+
+function showReading(lessonId, title) {
+    const modal = document.getElementById('nl-reading-modal');
+    const contentDiv = document.getElementById('reading-content');
+    const titleElement = document.getElementById('nl-reading-title');
+    
+    if (readingContent[lessonId]) {
+        titleElement.textContent = title;
+        contentDiv.innerHTML = readingContent[lessonId].content;
+        modal.style.display = 'block';
+    }
+}
+
+function closeReading() {
+    const modal = document.getElementById('nl-reading-modal');
+    modal.style.display = 'none';
+}
+
+// Update your window.onclick handler to include reading modal
+window.onclick = function(event) {
+    if (event.target.classList.contains('nl-modal')) {
+        closeVideo();
+        closeSlides();
+        closeReading();
+    }
+}
+
+// Update your escape key handler to include reading modal
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeVideo();
+        closeSlides();
+        closeReading();
+    }
+});
 </script>
