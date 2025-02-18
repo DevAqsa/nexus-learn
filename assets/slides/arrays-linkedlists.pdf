@@ -1,0 +1,24 @@
+Slide 1:
+Title: Arrays and Linked Lists
+- Memory Representation
+- Operations & Complexity
+- Implementation Techniques
+
+Slide 2:
+Arrays
+- Static vs Dynamic Arrays
+- Memory Layout
+- Time Complexity:
+  * Access: O(1)
+  * Insertion: O(n)
+  * Deletion: O(n)
+- Code Examples in C++
+
+Slide 3:
+Linked Lists
+- Singly vs Doubly Linked
+- Memory Management
+- Operations:
+  * Insertion: O(1)
+  * Deletion: O(1)
+  * Search: O(n)

@@ -1,0 +1,22 @@
+Slide 1:
+Title: Introduction to Data Structures
+- Course Overview
+- Basic Concepts
+- Course Objectives
+- Grading Criteria
+
+Slide 2:
+Basic Concepts
+- What is a Data Structure?
+- Types of Data Structures
+  * Linear Data Structures
+  * Non-Linear Data Structures
+- Time and Space Complexity
+- Algorithm Analysis
+
+Slide 3:
+Course Learning Outcomes
+- Understand fundamental data structures
+- Implement basic data structures in C++
+- Analyze algorithm complexity
+- Choose appropriate data structures for problems
