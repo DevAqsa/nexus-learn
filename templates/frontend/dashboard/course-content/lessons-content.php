@@ -672,6 +672,76 @@ $lessons = [
     }
 }
 
+/* Comment Action Buttons */
+.nl-comment-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nl-action-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #6b7280;
+    transition: all 0.2s ease;
+}
+
+.nl-edit-btn:hover {
+    color: #7c3aed;
+    background: #f3f4f6;
+}
+
+.nl-delete-btn:hover {
+    color: #ef4444;
+    background: #fee2e2;
+}
+
+.nl-edit-form {
+    margin-top: 10px;
+}
+
+.nl-edit-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.nl-edit-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.nl-comment-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Update the existing nl-comment-header style */
+.nl-comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Update button styles */
+.nl-button-secondary {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.nl-button-secondary:hover {
+    background: #e5e7eb;
+}
+
 </style>
 
 <script>
@@ -1151,5 +1221,99 @@ function submitComment() {
     
     // Reload comments
     loadComments(currentLessonId);
+}
+
+// Add these functions to handle edit and delete actions
+function editComment(commentId, originalContent) {
+    const commentContent = document.querySelector(`#comment-${commentId} .nl-comment-content`);
+    const editForm = `
+        <div class="nl-edit-form">
+            <textarea class="nl-edit-textarea">${originalContent}</textarea>
+            <div class="nl-edit-actions">
+                <button onclick="saveEdit(${commentId})" class="nl-button nl-button-primary">Save</button>
+                <button onclick="cancelEdit(${commentId}, '${originalContent}')" class="nl-button nl-button-secondary">Cancel</button>
+            </div>
+        </div>
+    `;
+    commentContent.innerHTML = editForm;
+}
+
+function saveEdit(commentId) {
+    const editForm = document.querySelector(`#comment-${commentId} .nl-edit-form`);
+    const newContent = editForm.querySelector('.nl-edit-textarea').value.trim();
+    
+    if (!newContent) return;
+    
+    // Update the comment in dummy data
+    for (let lesson in dummyComments) {
+        const comment = dummyComments[lesson].find(c => c.id === commentId);
+        if (comment) {
+            comment.content = newContent;
+            break;
+        }
+    }
+    
+    // Reload comments to show updated content
+    loadComments(currentLessonId);
+}
+
+function cancelEdit(commentId, originalContent) {
+    const commentContent = document.querySelector(`#comment-${commentId} .nl-comment-content`);
+    commentContent.innerHTML = originalContent;
+}
+
+function deleteComment(commentId) {
+    if (confirm('Are you sure you want to delete this comment?')) {
+        // Remove from dummy data
+        for (let lesson in dummyComments) {
+            dummyComments[lesson] = dummyComments[lesson].filter(c => c.id !== commentId);
+        }
+        
+        // Reload comments to show updated list
+        loadComments(currentLessonId);
+    }
+}
+
+// Update the loadComments function to include edit and delete buttons
+function loadComments(lessonId) {
+    const commentsList = document.getElementById('comments-list');
+    
+    commentsList.innerHTML = '<div class="nl-loading">Loading comments...</div>';
+    
+    setTimeout(() => {
+        commentsList.innerHTML = '';
+        const comments = dummyComments[lessonId] || [];
+        
+        if (comments.length === 0) {
+            commentsList.innerHTML = '<div class="nl-empty-state">No comments yet. Be the first to comment!</div>';
+            return;
+        }
+        
+        comments.forEach(comment => {
+            commentsList.innerHTML += `
+                <div class="nl-comment-item" id="comment-${comment.id}">
+                    <div class="nl-comment-header">
+                        <div class="nl-comment-info">
+                            <span class="nl-comment-author">${comment.author}</span>
+                            <span class="nl-comment-date">${formatDate(comment.date)}</span>
+                        </div>
+                        <div class="nl-comment-actions">
+                            <button onclick="editComment(${comment.id}, '${comment.content.replace(/'/g, "\\'")}')" 
+                                    class="nl-action-btn nl-edit-btn" 
+                                    title="Edit comment">
+                                <span class="dashicons dashicons-edit"></span>
+                            </button>
+                            <button onclick="deleteComment(${comment.id})" 
+                                    class="nl-action-btn nl-delete-btn" 
+                                    title="Delete comment">
+                                <span class="dashicons dashicons-trash"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="nl-comment-content">${comment.content}</div>
+                </div>
+            `;
+        });
+    }, 500);
 }
 </script>
