@@ -642,6 +642,35 @@ $lessons = [
     float: right;
 }
 
+.nl-loading {
+    text-align: center;
+    padding: 20px;
+    color: #6b7280;
+}
+
+.nl-empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.nl-comment-item {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 </style>
 
@@ -1023,4 +1052,104 @@ document.addEventListener('keydown', function(event) {
         closeComments();
     }
 });
+
+
+// Add this dummy comments data
+const dummyComments = {
+    1: [
+        {
+            author: "John Smith",
+            date: "2024-02-15",
+            content: "Great introduction to data structures! The examples were very helpful."
+        },
+        {
+            author: "Sarah Johnson",
+            date: "2024-02-14",
+            content: "Could you explain more about the time complexity of different data structures?"
+        },
+        {
+            author: "Mike Wilson",
+            date: "2024-02-13",
+            content: "This helped me understand the basics. Looking forward to the next lesson!"
+        }
+    ],
+    2: [
+        {
+            author: "Emily Brown",
+            date: "2024-02-15",
+            content: "The comparison between arrays and linked lists was very clear."
+        },
+        {
+            author: "David Lee",
+            date: "2024-02-14",
+            content: "Would love to see more practical examples of linked list implementations."
+        }
+    ],
+    // Add more dummy comments for other lessons
+};
+
+function loadComments(lessonId) {
+    const commentsList = document.getElementById('comments-list');
+    
+    // Show loading state
+    commentsList.innerHTML = '<div class="nl-loading">Loading comments...</div>';
+    
+    // Simulate API delay
+    setTimeout(() => {
+        commentsList.innerHTML = '';
+        const comments = dummyComments[lessonId] || [];
+        
+        if (comments.length === 0) {
+            commentsList.innerHTML = '<div class="nl-empty-state">No comments yet. Be the first to comment!</div>';
+            return;
+        }
+        
+        comments.forEach(comment => {
+            commentsList.innerHTML += `
+                <div class="nl-comment-item">
+                    <div class="nl-comment-header">
+                        <span class="nl-comment-author">${comment.author}</span>
+                        <span class="nl-comment-date">${formatDate(comment.date)}</span>
+                    </div>
+                    <div class="nl-comment-content">${comment.content}</div>
+                </div>
+            `;
+        });
+    }, 500); // Simulate loading delay
+}
+
+// Add this helper function to format dates
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+}
+
+// Modify the submitComment function to work with dummy data
+function submitComment() {
+    const commentText = document.getElementById('new-comment').value.trim();
+    if (!commentText) return;
+    
+    // Create new comment
+    const newComment = {
+        author: "Current User",
+        date: new Date().toISOString().split('T')[0],
+        content: commentText
+    };
+    
+    // Add to dummy data
+    if (!dummyComments[currentLessonId]) {
+        dummyComments[currentLessonId] = [];
+    }
+    dummyComments[currentLessonId].unshift(newComment);
+    
+    // Clear comment form
+    document.getElementById('new-comment').value = '';
+    
+    // Reload comments
+    loadComments(currentLessonId);
+}
 </script>
